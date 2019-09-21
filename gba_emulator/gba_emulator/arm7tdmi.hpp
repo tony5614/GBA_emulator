@@ -1,15 +1,61 @@
 #pragma once
 
+#include <fstream>
+#include <stdio.h>
+
+
 typedef unsigned char  U8;
 typedef unsigned short U16;
 typedef unsigned int   U32;
 
 
+
 //memory map
 
+// General Internal Memory
+// 00000000 - 00003FFF   BIOS - System ROM(16 KBytes)
+// 00004000 - 01FFFFFF   Not used
+// 02000000 - 0203FFFF   WRAM - On - board Work RAM(256 KBytes) 2 Wait
+// 02040000 - 02FFFFFF   Not used
+// 03000000 - 03007FFF   WRAM - On - chip Work RAM(32 KBytes)
+// 03008000 - 03FFFFFF   Not used
+// 04000000 - 040003FE   I / O Registers
+// 04000400 - 04FFFFFF   Not used
+// Internal Display Memory
+// 05000000 - 050003FF   BG / OBJ Palette RAM(1 Kbyte)
+// 05000400 - 05FFFFFF   Not used
+// 06000000 - 06017FFF   VRAM - Video RAM(96 KBytes)
+// 06018000 - 06FFFFFF   Not used
+// 07000000 - 070003FF   OAM - OBJ Attributes(1 Kbyte)
+// 07000400 - 07FFFFFF   Not used
+// External Memory(Game Pak)
+// 08000000 - 09FFFFFF   Game Pak ROM / FlashROM(max 32MB) - Wait State 0
+// 0A000000 - 0BFFFFFF   Game Pak ROM / FlashROM(max 32MB) - Wait State 1
+// 0C000000 - 0DFFFFFF   Game Pak ROM / FlashROM(max 32MB) - Wait State 2
+// 0E000000 - 0E00FFFF   Game Pak SRAM(max 64 KBytes) - 8bit Bus width
+// 0E010000 - 0FFFFFFF   Not used
+
+
+
+// General Internal Memory
+#define BIOS_BASE                            (0x00000000)
+#define BIOS_SIZE                            (0x00004000)
+#define ON_BOARD_WRAM_BASE                   (0x02000000)
+#define ON_BOARD_WRAM_SIZE                   (0x00040000)
+#define ON_CHIP_WRAM_BASE                    (0x03000000)
+#define ON_CHIP_WRAM_SIZE                    (0x00008000)
+#define IO_REGISTER_BASE                     (0x04000000)
+#define IO_REGISTER_SIZE                     (0x000003FF)
+// internal display memory
+#define PALETTE_RAM_BASE                     (0x05000000)
+#define PALETTE_RAM_SIZE                     (0x00000400)
+#define VIDEO_RAM_BASE                       (0x06000000)
+#define VIDEO_RAM_SIZE                       (0x00018000)
+#define OBJ_ATTR_RAM_BASE                    (0x07000000)
+#define OBJ_ATTR_RAM_SIZE                    (0x00000400)
 //external memory(game pak)
 #define CARTRIDGE_ROM_WAIT_STATE_0_BASE      (0x08000000)
-#define CARTRIDGE_ROM_WAIT_STATE_0_SIZE      (0x02000000)
+#define CARTRIDGE_ROM_WAIT_STATE_0_SIZE      (0x01000000)
 
 
 #define NUM_OF_REGISTER                      (16)
@@ -42,21 +88,9 @@ typedef struct cartridge_rom_header
     U8  boot_mode;
     U8  slave_id_number;
     U8  reserved3[26];
+    U32 joybus_entry_point;
 }
 ROM_HEADER;
-
-
-typedef struct cartridge_rom_header2 //192 bytes
-{
-    U32 rom_entry_point;
-    U8  nintendo_logo[156];
-    U8  game_title[12];
-    U8  game_code[4];
-    U8  maker_code[2];
-
-}
-ROM_HEADER2;
-#pragma pack()
 
 typedef struct program_status_register 
 {
@@ -70,6 +104,10 @@ typedef struct program_status_register
     U32 Z    : 1;
     U32 N    : 1;
 }CPSR, SPSR;
+
+#pragma pack()
+
+
 
 class ARM7TDMI
 {
@@ -98,4 +136,13 @@ public:
     void run() 
     {
     }
+};
+
+
+
+
+class GBA_EMUALTOR 
+{
+public:
+    U8 memory[]
 };
