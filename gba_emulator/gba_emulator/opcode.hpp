@@ -252,3 +252,313 @@ void MVMS_ari() {}
 void MVMS_arr() {}
 void MVMS_rri() {}
 void MVMS_rrr() {}
+
+void ANDS_imm (){}	
+void EOR_imm (){}
+void EORS_imm (){}
+void SUB_imm (){}
+void SUBS_imm (){}
+void RSB_imm (){}
+void RSBS_imm (){}
+void ADD_imm (){}
+void ADDS_imm (){}
+void ADC_imm (){}
+void ADCS_imm (){}
+void SBC_imm (){}
+void SBCS_imm (){}
+void RSC_imm (){}
+void RSCS_imm (){}
+void TSTS_imm (){}
+void MSR_ic (){}
+void TEQS_imm (){}
+void CMPS_imm (){}
+void MSR_is (){}
+void CMNS_imm (){}
+void ORR_imm (){}
+void ORRS_imm (){}
+void MOV_imm (){}
+void MOVS_imm (){}
+void BIC_imm (){}
+void BICS_imm (){}
+void MVN_imm (){}
+void MVNS_imm (){}
+void STR_ptim (){}
+void LDR_ptim (){}
+void STRT_ptim (){}
+void LDRT_ptim (){}
+void STRB_ptim (){}
+void LDRB_ptim (){}
+void STRBT_ptim (){}
+void LDRBT_ptim (){}
+void STR_ptip (){}
+void LDR_ptip (){}
+void STRT_ptip (){}
+void LDRT_ptip (){}
+void STRB_ptip (){}
+void LDRB_ptip (){}
+void STRBT_ptip (){}
+void LDRBT_ptip (){}
+void STR_ofim (){}
+void LDR_ofim (){}
+void STR_prim (){}
+void LDR_prim (){}
+void STRB_ofim (){}
+void LDRB_ofim (){}
+void STRB_prim (){}
+void LDRB_prim (){}
+void STR_ofip (){}
+void LDR_ofip (){}
+void STR_prip (){}
+void LDR_prip (){}
+void STRB_ofip (){}
+void LDRB_ofip (){}
+void STRB_prip (){}
+void LDRB_prip (){}
+
+void STR_ptrmll (){} 
+void STR_ptrmlr (){} 
+void STR_ptrmar (){} 
+void STR_ptrmrr (){} 
+
+
+void LDR_ptrmll (){} 
+void LDR_ptrmlr (){} 
+void LDR_ptrmar (){} 
+void LDR_ptrmrr (){} 
+
+
+void STRT_ptrmll (){} 
+void STRT_ptrmlr (){} 
+void STRT_ptrmar (){} 
+void STRT_ptrmrr (){} 
+
+
+void LDRT_ptrmll (){} 
+void LDRT_ptrmlr (){} 
+void LDRT_ptrmar (){} 
+void LDRT_ptrmrr (){} 
+
+
+void STRB_ptrmll (){} 
+void STRB_ptrmlr (){} 
+void STRB_ptrmar (){} 
+void STRB_ptrmrr (){} 
+
+
+void LDRB_ptrmll (){} 
+void LDRB_ptrmlr (){} 
+void LDRB_ptrmar (){} 
+void LDRB_ptrmrr (){} 
+
+
+void STRBT_ptrmll (){} 
+void STRBT_ptrmlr (){} 
+void STRBT_ptrmar (){} 
+void STRBT_ptrmrr (){} 
+
+          
+void LDRBT_ptrmll (){} 
+void LDRBT_ptrmlr (){} 
+void LDRBT_ptrmar (){} 
+void LDRBT_ptrmrr (){} 
+
+
+void STR_ptrpll (){} 
+void STR_ptrplr (){} 
+void STR_ptrpar (){} 
+void STR_ptrprr (){} 
+
+
+void LDR_ptrpll (){} 
+void LDR_ptrplr (){} 
+void LDR_ptrpar (){} 
+void LDR_ptrprr (){} 
+
+
+void STRT_ptrpll (){} 
+void STRT_ptrplr (){} 
+void STRT_ptrpar (){} 
+void STRT_ptrprr (){} 
+
+         
+void LDRT_ptrpll (){} 
+void LDRT_ptrplr (){} 
+void LDRT_ptrpar (){} 
+void LDRT_ptrprr (){} 
+
+
+void STRB_ptrpll (){} 
+void STRB_ptrplr (){} 
+void STRB_ptrpar (){} 
+void STRB_ptrprr (){} 
+
+         
+void LDRB_ptrpll (){} 
+void LDRB_ptrplr (){} 
+void LDRB_ptrpar (){} 
+void LDRB_ptrprr (){} 
+
+
+void STRBT_ptrpll (){} 
+void STRBT_ptrplr (){} 
+void STRBT_ptrpar (){} 
+void STRBT_ptrprr (){} 
+
+          
+void LDRBT_ptrpll (){} 
+void LDRBT_ptrplr (){} 
+void LDRBT_ptrpar (){} 
+void LDRBT_ptrprr (){} 
+
+
+void STR_ofrmll (){} 
+void STR_ofrmlr (){} 
+void STR_ofrmar (){} 
+void STR_ofrmrr (){} 
+
+
+void LDR_ofrmll (){} 
+void LDR_ofrmlr (){} 
+void LDR_ofrmar (){} 
+void LDR_ofrmrr (){} 
+
+
+void STR_prrmll (){} 
+void STR_prrmlr (){} 
+void STR_prrmar (){} 
+void STR_prrmrr (){} 
+
+
+void LDR_prrmll (){} 
+void LDR_prrmlr (){} 
+void LDR_prrmar (){} 
+void LDR_prrmrr (){} 
+
+
+void STRB_ofrmll (){} 
+void STRB_ofrmlr (){} 
+void STRB_ofrmar (){} 
+void STRB_ofrmrr (){} 
+
+         
+void LDRB_ofrmll (){} 
+void LDRB_ofrmlr (){} 
+void LDRB_ofrmar (){} 
+void LDRB_ofrmrr (){} 
+
+         
+void STRB_prrmll (){} 
+void STRB_prrmlr (){} 
+void STRB_prrmar (){} 
+void STRB_prrmrr (){} 
+
+         
+void LDRB_prrmll (){} 
+void LDRB_prrmlr (){} 
+void LDRB_prrmar (){} 
+void LDRB_prrmrr (){} 
+
+
+void STR_ofrpll (){} 
+void STR_ofrplr (){} 
+void STR_ofrpar (){} 
+void STR_ofrprr (){} 
+
+
+void LDR_ofrpll (){} 
+void LDR_ofrplr (){} 
+void LDR_ofrpar (){} 
+
+
+void STR_prrpll (){} 
+void STR_prrplr (){} 
+void STR_prrpar (){} 
+void STR_prrprr (){} 
+
+
+void LDR_prrpll (){} 
+void LDR_prrplr (){} 
+void LDR_prrpar (){} 
+void LDR_prrprr (){} 
+
+
+void STRB_ofrpll (){} 
+void STRB_ofrplr (){} 
+void STRB_ofrpar (){} 
+void STRB_ofrprr (){} 
+
+         
+void LDRB_ofrpll (){} 
+void LDRB_ofrplr (){} 
+void LDRB_ofrpar (){} 
+void LDRB_ofrprr (){} 
+
+         
+void STRB_prrpll (){} 
+void STRB_prrplr (){} 
+void STRB_prrpar (){} 
+void STRB_prrprr (){} 
+
+         
+void LDRB_prrpll (){} 
+void LDRB_prrplr (){} 
+void LDRB_prrpar (){} 
+void LDRB_prrprr (){} 
+
+
+void STMDA(){}
+void LDMDA(){}
+void STMDA_w(){}
+void LDMDA_w(){}
+void STMDA_u(){}
+void LDMDA_u(){}
+void STMDA_uw(){}
+void LDMDA_uw(){}
+void STMIA(){}
+void LDMIA(){}
+void STMIA_w(){}
+void LDMIA_w(){}
+void STMIA_u(){}
+void LDMIA_u(){}
+void STMIA_uw(){}
+void LDMIA_uw(){}
+void STMDB(){}
+void LDMDB(){}
+void STMDB_w(){}
+void LDMDB_w(){}
+void STMDB_u(){}
+void LDMDB_u(){}
+void STMDB_uw(){}
+void LDMDB_uw(){}
+void STMIB(){}
+void LDMIB(){}
+void STMIB_w(){}
+void LDMIB_w(){}
+void STMIB_u(){}
+void LDMIB_u(){}
+void STMIB_uw(){}
+void LDMIB_uw(){}
+
+void B(){}
+void BL(){}
+
+void STC_ofm(){}
+void LDC_ofm(){}
+void STC_prm(){}
+void LDC_prm(){}
+
+void STC_ofp(){}
+void LDC_ofp(){}
+void STC_prp(){}
+void LDC_prp(){}
+
+void STC_unm(){}
+void LDC_unm(){}
+void STC_ptm(){}
+void LDC_ptm(){}
+
+void STC_unp(){}
+void LDC_unp(){}
+void STC_ptp(){}
+void LDC_ptp(){}
+
