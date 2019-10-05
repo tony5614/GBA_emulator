@@ -2,6 +2,7 @@
 
 #include <fstream>
 #include <stdio.h>
+#include "opcode.hpp"
 
 
 typedef unsigned char  U8;
