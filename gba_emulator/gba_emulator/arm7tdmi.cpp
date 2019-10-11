@@ -1,8 +1,8 @@
 #pragma once
 
-typedef unsigned char  U8;
-typedef unsigned short U16;
-typedef unsigned int   U32;
+
+#include "arm7tdmi.hpp"
+
 
 //instruction bit[31:28]
 #define COND_EQ             (0x0)     //Z set 	                    equal
@@ -29,250 +29,11 @@ typedef unsigned int   U32;
 
 
 
-#pragma pack(1)
 
-typedef struct instruction_format
-{
-    //Data Processing/PSR Transfer
-    union
-    {
-		struct
-		{
-            //operand2 is a register
-			union 
-			{
-				U32 Rm : 4;
-
-                struct // : 8         //apply to Rm
-                {
-                    union
-                    {
-                        U32 rsv0 : 1;         // = 0
-                        U32 shift_type : 2;
-                        U32 shift_amount : 5;  //5 bit unsigned integer
-                    };
-                    union
-                    {
-                        U32 rsv0 : 1;          // = 1
-                        U32 shift_type : 2;
-                        U32 rsv1 : 1;
-                        U32 shift_reg : 4;     //shift amount specified in botom byte of Rs
-                    };
-                }shift;							
-			};
-
-            //operand2 is an immediate value
-			union 
-			{
-				U32 imm : 8;
-				U32 rotate : 4;				
-			};
-		}operand2;
-		
-        U32 Rd : 4;
-        U32 Rn : 4;
-        U32 S : 1;
-        U32 opc : 4;
-        U32 I : 1;
-        U32 rsv : 2;
-        U32 cond : 4;
-    }data_proc;
-
-    //Multiply
-    union
-    {
-        U32 Rm : 4;
-        U32 rsv0 : 4;
-        U32 Rs : 4;
-        U32 Rn : 4;
-        U32 Rd : 4;
-        U32 S : 1;
-        U32 A : 1;
-        U32 rsv1 : 6;
-        U32 cond : 4;
-    }multply;
-
-    //Multiply Long
-    union
-    {
-        U32 Rm : 4;
-        U32 rsv0 : 4;
-        U32 Rn : 4;
-        U32 RdLo : 4;
-        U32 RdHi : 4;
-        U32 S : 1;
-        U32 A : 1;
-        U32 U : 1;
-        U32 rsv1 : 5;
-        U32 cond : 4;
-    }multply_long;
-
-    //Single Data Swap
-    union
-    {
-        U32 Rm : 4;
-        U32 rsv1 : 8;
-        U32 Rd : 4;
-        U32 Rn : 4;
-        U32 rsv2 : 2;
-        U32 B : 1;
-        U32 rsv : 5;
-        U32 cond : 4;
-    }single_data_swap;
-
-    //Branch and Exchange
-    union
-    {
-        U32 Rn : 4;
-        U32 rsv : 24;
-        U32 cond : 4;
-    }branch_exchange;
-
-    //Halfword Data Transfer : register offset
-    union
-    {
-        U32 Rm : 4;
-        U32 rsv1 : 1;
-        U32 H : 1;
-        U32 S : 1;
-        U32 rsv2 : 5;
-        U32 Rd : 4;
-        U32 Rn : 4;
-        U32 L : 1;
-        U32 W : 1;
-        U32 rsv3 : 1;
-        U32 U : 1;
-        U32 P : 1;
-        U32 rsv4 : 3;
-        U32 cond : 4;
-    }hlf_data_tsf_reg_ofst;
-
-    //Halfword Data Transfer : immediate offset
-    union
-    {
-        U32 offset0 : 4;
-        U32 rsv1 : 1;
-        U32 H : 1;
-        U32 S : 1;
-        U32 rsv2 : 1;
-        U32 offset1 : 4;
-        U32 Rd : 4;
-        U32 Rn : 4;
-        U32 L : 1;
-        U32 W : 1;
-        U32 rsv3 : 1;
-        U32 U : 1;
-        U32 P : 1;
-        U32 rsv4 : 3;
-        U32 cond : 4;
-    }hlf_data_tsf_imm_ofst;
-
-    //Single Data Transfer
-    union
-    {
-        U32 offset : 12;
-        U32 Rd : 4;
-        U32 Rn : 4;
-        U32 L : 1;
-        U32 W : 1;
-        U32 B : 1;
-        U32 U : 1;
-        U32 P : 1;
-        U32 rsv : 3;
-        U32 cond : 4;
-    }single_data_tsf;
-
-    //Undefined
-    union
-    {
-        U32 rsv1 : 28;
-        U32 cond : 4;
-    }undefined;
-
-    //Block Data Transfer
-    union
-    {
-        U32 reg_list : 16;
-        U32 Rn : 4;
-        U32 L : 1;
-        U32 W : 1;
-        U32 B : 1;
-        U32 U : 1;
-        U32 P : 1;
-        U32 rsv : 3;
-        U32 cond : 4;
-    }blk_data_tsf;
-
-    //Branch
-    union
-    {
-        U32 offset : 24;
-        U32 L : 1;
-        U32 rsv : 3;
-        U32 cond : 4;
-    }branch;
-
-    //Coprocessor Data Transfer
-    union
-    {
-        U32 offset : 8;
-        U32 CPn : 4;
-        U32 CRd : 4;
-        U32 Rn : 4;
-        U32 L : 1;
-        U32 W : 1;
-        U32 N : 1;
-        U32 U : 1;
-        U32 P : 1;
-        U32 rsv : 3;
-        U32 cond : 4;
-    }cop_data_tfr;
-
-    //Coprocessor Data Operation
-    union
-    {
-        U32 CRm : 4;
-        U32 rsv0 : 1;
-        U32 CP : 3;
-        U32 CPn : 4;
-        U32 CPd : 4;
-        U32 CRn : 4;
-        U32 CP_opc : 4;
-        U32 rsv1 : 4;
-        U32 cond : 4;
-
-    }cop_data_op;
-
-    //Coprocessor Register Transfer
-    union
-    {
-        U32 CRm : 4;
-        U32 rsv0 : 1;
-        U32 CP : 3;
-        U32 CPn : 4;
-        U32 CPd : 4;
-        U32 CRn : 4;
-        U32 rsv1 : 1;
-        U32 CP_opc : 3;
-        U32 rsv2 : 4;
-        U32 cond : 4;
-    }cop_reg_tfr;
+//class GBA_EMUALTOR_ARM7TDMI;
 
 
-    //Software Interrupt
-    union
-    {
-        U32 rsv : 28;
-        U32 cond : 4;
-    }sw_int;
 
-
-}INSTRUCTION_FORMAT;
-
-#pragma pack()
-
-
-class GBA_EMUALTOR_ARM7TDMI;
 
 //logical left immediate
 void GBA_EMUALTOR_ARM7TDMI::AND_lli(INSTRUCTION_FORMAT *instruction_ptr)
@@ -280,35 +41,269 @@ void GBA_EMUALTOR_ARM7TDMI::AND_lli(INSTRUCTION_FORMAT *instruction_ptr)
     U32 Rn           = instruction_ptr->data_proc.Rn;
     U32 Rd           = instruction_ptr->data_proc.Rd;
     U32 Rm           = instruction_ptr->data_proc.operand2.Rm;
-    //U8  shift_type = instruction_ptr->data_proc.operand2.shift.shift_type;
     U8  shift_amount = instruction_ptr->data_proc.operand2.shift.shift_amount;
 
-    this->R[Rd] = this->R[Rn] & this->R[Rm];
-
-
+    this->R[Rd] = this->R[Rn] & (((U32)this->R[Rm]) << shift_amount);
 }
+
+//logical left register
+void GBA_EMUALTOR_ARM7TDMI::AND_llr(INSTRUCTION_FORMAT *instruction_ptr) 
+{
+    U32 Rn           = instruction_ptr->data_proc.Rn;
+    U32 Rd           = instruction_ptr->data_proc.Rd;
+    U32 Rm           = instruction_ptr->data_proc.operand2.Rm;
+    U8  shift_amount = instruction_ptr->data_proc.operand2.shift.shift_reg;
+
+    this->R[Rd] = this->R[Rn] & (((U32)this->R[Rm]) << shift_amount);
+}
+
 //doc, p55 : The form of the shift field which might be expected to correspond to LSR #0 is used to
 //encode LSR #32, which has a zero result with bit 31 of Rm as the carry output.Logical
 //shift right zero is redundant as it is the same as logical shift left zero, so the assembler
 //will convert LSR #0 (and ASR #0 and ROR #0) into LSL #0, and allow LSR #32 to be
 //specified.
 
-void GBA_EMUALTOR_ARM7TDMI::AND_llr(INSTRUCTION_FORMAT *instruction_ptr) {}
-void GBA_EMUALTOR_ARM7TDMI::AND_lri(INSTRUCTION_FORMAT *instruction_ptr) {}
-void GBA_EMUALTOR_ARM7TDMI::AND_lrr(INSTRUCTION_FORMAT *instruction_ptr) {}
-void GBA_EMUALTOR_ARM7TDMI::AND_ari(INSTRUCTION_FORMAT *instruction_ptr) {}
-void GBA_EMUALTOR_ARM7TDMI::AND_arr(INSTRUCTION_FORMAT *instruction_ptr) {}
-void GBA_EMUALTOR_ARM7TDMI::AND_rri(INSTRUCTION_FORMAT *instruction_ptr) {}
-void GBA_EMUALTOR_ARM7TDMI::AND_rrr(INSTRUCTION_FORMAT *instruction_ptr) {}
+//logical right immediate
+void GBA_EMUALTOR_ARM7TDMI::AND_lri(INSTRUCTION_FORMAT *instruction_ptr) 
+{	
+    U32 Rn           = instruction_ptr->data_proc.Rn;
+    U32 Rd           = instruction_ptr->data_proc.Rd;
+    U32 Rm           = instruction_ptr->data_proc.operand2.Rm;
+    U8  shift_amount = instruction_ptr->data_proc.operand2.shift.shift_amount;
 
-void GBA_EMUALTOR_ARM7TDMI::ANDS_lli(INSTRUCTION_FORMAT *instruction_ptr) {}
-void GBA_EMUALTOR_ARM7TDMI::ANDS_llr(INSTRUCTION_FORMAT *instruction_ptr) {}
-void GBA_EMUALTOR_ARM7TDMI::ANDS_lri(INSTRUCTION_FORMAT *instruction_ptr) {}
-void GBA_EMUALTOR_ARM7TDMI::ANDS_lrr(INSTRUCTION_FORMAT *instruction_ptr) {}
-void GBA_EMUALTOR_ARM7TDMI::ANDS_ari(INSTRUCTION_FORMAT *instruction_ptr) {}
-void GBA_EMUALTOR_ARM7TDMI::ANDS_arr(INSTRUCTION_FORMAT *instruction_ptr) {}
-void GBA_EMUALTOR_ARM7TDMI::ANDS_rri(INSTRUCTION_FORMAT *instruction_ptr) {}
-void GBA_EMUALTOR_ARM7TDMI::ANDS_rrr(INSTRUCTION_FORMAT *instruction_ptr) {}
+    this->R[Rd] = this->R[Rn] & (((U32)this->R[Rm]) >> shift_amount);
+}
+
+//logical right register
+void GBA_EMUALTOR_ARM7TDMI::AND_lrr(INSTRUCTION_FORMAT *instruction_ptr) 
+{
+    U32 Rn           = instruction_ptr->data_proc.Rn;
+    U32 Rd           = instruction_ptr->data_proc.Rd;
+    U32 Rm           = instruction_ptr->data_proc.operand2.Rm;
+    U8  shift_amount = instruction_ptr->data_proc.operand2.shift.shift_reg;
+
+    this->R[Rd] = this->R[Rn] & (((U32)this->R[Rm]) >> shift_amount);
+}
+
+//arithmetic right shift immediate
+void GBA_EMUALTOR_ARM7TDMI::AND_ari(INSTRUCTION_FORMAT *instruction_ptr) 
+{	
+    U32 Rn           = instruction_ptr->data_proc.Rn;
+    U32 Rd           = instruction_ptr->data_proc.Rd;
+    U32 Rm           = instruction_ptr->data_proc.operand2.Rm;
+    U8  shift_amount = instruction_ptr->data_proc.operand2.shift.shift_amount;
+
+    this->R[Rd] = this->R[Rn] & (((S32)this->R[Rm]) >> shift_amount);
+}
+
+//arithmetic right shift register
+void GBA_EMUALTOR_ARM7TDMI::AND_arr(INSTRUCTION_FORMAT *instruction_ptr) 
+{
+    U32 Rn           = instruction_ptr->data_proc.Rn;
+    U32 Rd           = instruction_ptr->data_proc.Rd;
+    U32 Rm           = instruction_ptr->data_proc.operand2.Rm;
+    U8  shift_amount = instruction_ptr->data_proc.operand2.shift.shift_reg;
+	
+    this->R[Rd] = this->R[Rn] & (((S32)this->R[Rm]) >> shift_amount);
+}
+
+//rotate right shift immediate
+void GBA_EMUALTOR_ARM7TDMI::AND_rri(INSTRUCTION_FORMAT *instruction_ptr) 
+{	
+    U32 Rn           = instruction_ptr->data_proc.Rn;
+    U32 Rd           = instruction_ptr->data_proc.Rd;
+    U32 Rm           = instruction_ptr->data_proc.operand2.Rm;
+    U8  shift_amount = instruction_ptr->data_proc.operand2.shift.shift_amount;
+	
+    this->R[Rd] = this->R[Rn] & ((((U32)this->R[Rm]) >> shift_amount) | ((((U32)this->R[Rm]) << (32 - shift_amount))));
+}
+
+//rotate right shift register
+void GBA_EMUALTOR_ARM7TDMI::AND_rrr(INSTRUCTION_FORMAT *instruction_ptr) 
+{
+    U32 Rn           = instruction_ptr->data_proc.Rn;
+    U32 Rd           = instruction_ptr->data_proc.Rd;
+    U32 Rm           = instruction_ptr->data_proc.operand2.Rm;
+    U8  shift_amount = instruction_ptr->data_proc.operand2.shift.shift_reg;
+	
+    this->R[Rd] = this->R[Rn] & ((((U32)this->R[Rm]) >> shift_amount) | ((((U32)this->R[Rm]) << (32 - shift_amount))));
+}
+
+
+
+//logical left immediate
+void GBA_EMUALTOR_ARM7TDMI::ANDS_lli(INSTRUCTION_FORMAT *instruction_ptr)
+{
+    U32 Rn           = instruction_ptr->data_proc.Rn;
+    U32 Rd           = instruction_ptr->data_proc.Rd;
+    U32 Rm           = instruction_ptr->data_proc.operand2.Rm;
+    U8  shift_amount = instruction_ptr->data_proc.operand2.shift.shift_amount;
+
+    this->R[Rd] = this->R[Rn] & (((U32)this->R[Rm]) << shift_amount);
+
+	//shift_amount : 0 ~ 31
+	if(shift_amount != 0)
+	{
+		this->CPSR_usr.C = this->R[Rm] & BIT(31 - shift_amount + 1);
+	}
+	else
+	{
+	}
+}
+
+//logical left register
+void GBA_EMUALTOR_ARM7TDMI::ANDS_llr(INSTRUCTION_FORMAT *instruction_ptr) 
+{
+    U32 Rn           = instruction_ptr->data_proc.Rn;
+    U32 Rd           = instruction_ptr->data_proc.Rd;
+    U32 Rm           = instruction_ptr->data_proc.operand2.Rm;
+    U8  shift_amount = instruction_ptr->data_proc.operand2.shift.shift_reg;
+
+    this->R[Rd] = this->R[Rn] & (((U32)this->R[Rm]) << shift_amount);
+
+	//shift_amount : 0 ~ 31
+	if(shift_amount != 0)
+	{
+		this->CPSR_usr.C = this->R[Rm] & BIT(31 - shift_amount + 1);
+	}
+	else
+	{
+	}
+}
+
+//doc, p55 : The form of the shift field which might be expected to correspond to LSR #0 is used to
+//encode LSR #32, which has a zero result with bit 31 of Rm as the carry output.Logical
+//shift right zero is redundant as it is the same as logical shift left zero, so the assembler
+//will convert LSR #0 (and ASR #0 and ROR #0) into LSL #0, and allow LSR #32 to be
+//specified.
+
+//logical right immediate
+void GBA_EMUALTOR_ARM7TDMI::ANDS_lri(INSTRUCTION_FORMAT *instruction_ptr) 
+{	
+    U32 Rn           = instruction_ptr->data_proc.Rn;
+    U32 Rd           = instruction_ptr->data_proc.Rd;
+    U32 Rm           = instruction_ptr->data_proc.operand2.Rm;
+    U8  shift_amount = instruction_ptr->data_proc.operand2.shift.shift_amount;
+
+    this->R[Rd] = this->R[Rn] & (((U32)this->R[Rm]) >> shift_amount);
+
+	//shift_amount : 0 ~ 31
+	if(shift_amount != 0)
+	{
+		this->CPSR_usr.C = this->R[Rm] & BIT(shift_amount - 1);
+	}
+	else // shift_amount == 0
+	{
+		this->CPSR_usr.C = this->R[Rm] & BIT(31);
+	}
+}
+
+//logical right register
+void GBA_EMUALTOR_ARM7TDMI::ANDS_lrr(INSTRUCTION_FORMAT *instruction_ptr) 
+{
+    U32 Rn           = instruction_ptr->data_proc.Rn;
+    U32 Rd           = instruction_ptr->data_proc.Rd;
+    U32 Rm           = instruction_ptr->data_proc.operand2.Rm;
+    U8  shift_amount = instruction_ptr->data_proc.operand2.shift.shift_reg;
+
+    this->R[Rd] = this->R[Rn] & (((U32)this->R[Rm]) >> shift_amount);
+
+	//shift_amount : 0 ~ 31
+	if(shift_amount != 0)
+	{
+		this->CPSR_usr.C = this->R[Rm] & BIT(shift_amount - 1);
+	}
+	else // shift_amount == 0
+	{
+		this->CPSR_usr.C = this->R[Rm] & BIT(31);
+	}
+}
+
+//arithmetic right shift immediate
+void GBA_EMUALTOR_ARM7TDMI::ANDS_ari(INSTRUCTION_FORMAT *instruction_ptr) 
+{	
+    U32 Rn           = instruction_ptr->data_proc.Rn;
+    U32 Rd           = instruction_ptr->data_proc.Rd;
+    U32 Rm           = instruction_ptr->data_proc.operand2.Rm;
+    U8  shift_amount = instruction_ptr->data_proc.operand2.shift.shift_amount;
+
+    this->R[Rd] = this->R[Rn] & (((S32)this->R[Rm]) >> shift_amount);
+
+	//shift_amount : 0 ~ 31
+	if(shift_amount != 0)
+	{
+		this->CPSR_usr.C = this->R[Rm] & BIT(shift_amount - 1);
+	}
+	else // shift_amount == 0
+	{
+		this->CPSR_usr.C = this->R[Rm] & BIT(31);
+	}
+}
+
+//arithmetic right shift register
+void GBA_EMUALTOR_ARM7TDMI::ANDS_arr(INSTRUCTION_FORMAT *instruction_ptr) 
+{
+    U32 Rn           = instruction_ptr->data_proc.Rn;
+    U32 Rd           = instruction_ptr->data_proc.Rd;
+    U32 Rm           = instruction_ptr->data_proc.operand2.Rm;
+    U8  shift_amount = instruction_ptr->data_proc.operand2.shift.shift_reg;
+	
+    this->R[Rd] = this->R[Rn] & (((S32)this->R[Rm]) >> shift_amount);
+
+	//shift_amount : 0 ~ 31
+	if(shift_amount != 0)
+	{
+		this->CPSR_usr.C = this->R[Rm] & BIT(shift_amount - 1);
+	}
+	else // shift_amount == 0
+	{
+		this->CPSR_usr.C = this->R[Rm] & BIT(31);
+	}
+}
+
+//rotate right shift immediate
+void GBA_EMUALTOR_ARM7TDMI::ANDS_rri(INSTRUCTION_FORMAT *instruction_ptr) 
+{	
+    U32 Rn           = instruction_ptr->data_proc.Rn;
+    U32 Rd           = instruction_ptr->data_proc.Rd;
+    U32 Rm           = instruction_ptr->data_proc.operand2.Rm;
+    U8  shift_amount = instruction_ptr->data_proc.operand2.shift.shift_amount;
+	
+    this->R[Rd] = this->R[Rn] & ((((U32)this->R[Rm]) >> shift_amount) | ((((U32)this->R[Rm]) << (32 - shift_amount))));
+
+	//shift_amount : 0 ~ 31
+	if(shift_amount != 0)
+	{
+		this->CPSR_usr.C = this->R[Rm] & BIT(shift_amount - 1);
+	}
+	else // shift_amount == 0
+	{
+		this->CPSR_usr.C = this->R[Rm] & BIT(31);
+	}
+}
+
+//rotate right shift register
+void GBA_EMUALTOR_ARM7TDMI::ANDS_rrr(INSTRUCTION_FORMAT *instruction_ptr) 
+{
+    U32 Rn           = instruction_ptr->data_proc.Rn;
+    U32 Rd           = instruction_ptr->data_proc.Rd;
+    U32 Rm           = instruction_ptr->data_proc.operand2.Rm;
+    U8  shift_amount = instruction_ptr->data_proc.operand2.shift.shift_reg;
+	
+    this->R[Rd] = this->R[Rn] & ((((U32)this->R[Rm]) >> shift_amount) | ((((U32)this->R[Rm]) << (32 - shift_amount))));
+
+	//shift_amount : 0 ~ 31
+	if(shift_amount != 0)
+	{
+		this->CPSR_usr.C = this->R[Rm] & BIT(shift_amount - 1);
+	}
+	else // shift_amount == 0
+	{
+		this->CPSR_usr.C = this->R[Rm] & BIT(31);
+	}
+}
+
+
 
 //exclusive OR
 void GBA_EMUALTOR_ARM7TDMI::EOR_lli(INSTRUCTION_FORMAT *instruction_ptr) {}

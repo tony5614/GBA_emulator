@@ -2,10 +2,18 @@
 
 #include <fstream>
 #include <stdio.h>
-#include "opcode.hpp"
 
 
+typedef unsigned char  U8;
+typedef unsigned short U16;
+typedef unsigned int   U32;
+typedef          char  S8;
+typedef          short S16;
+typedef          int   S32;
 
+
+#define BIT(n)         (1 << n)
+#define BIT_MASK(e,s)  (((((0xFFFFFFFF << (31 - (e))) >> (31 - (e)))) >> (s)) << (s))
 
 //memory map
 
@@ -80,6 +88,250 @@
 
 
 #pragma pack(1)
+
+
+
+typedef struct instruction_format
+{
+    //Data Processing/PSR Transfer
+    union
+    {
+		struct
+		{
+            //operand2 is a register
+			union 
+			{
+				U32 Rm : 4;
+
+                struct // : 8         //apply to Rm
+                {
+                    union
+                    {
+                        U32 rsv0 : 1;         // = 0
+                        U32 shift_type : 2;
+                        U32 shift_amount : 5;  //5 bit unsigned integer
+                    };
+                    union
+                    {
+                        U32 rsv0 : 1;          // = 1
+                        U32 shift_type : 2;
+                        U32 rsv1 : 1;
+                        U32 shift_reg : 4;     //shift amount specified in botom byte of Rs
+                    };
+                }shift;							
+			};
+
+            //operand2 is an immediate value
+			union 
+			{
+				U32 imm : 8;
+				U32 rotate : 4;				
+			};
+		}operand2;
+		
+        U32 Rd : 4;
+        U32 Rn : 4;
+        U32 S : 1;
+        U32 opc : 4;
+        U32 I : 1;
+        U32 rsv : 2;
+        U32 cond : 4;
+    }data_proc;
+
+    //Multiply
+    union
+    {
+        U32 Rm : 4;
+        U32 rsv0 : 4;
+        U32 Rs : 4;
+        U32 Rn : 4;
+        U32 Rd : 4;
+        U32 S : 1;
+        U32 A : 1;
+        U32 rsv1 : 6;
+        U32 cond : 4;
+    }multply;
+
+    //Multiply Long
+    union
+    {
+        U32 Rm : 4;
+        U32 rsv0 : 4;
+        U32 Rn : 4;
+        U32 RdLo : 4;
+        U32 RdHi : 4;
+        U32 S : 1;
+        U32 A : 1;
+        U32 U : 1;
+        U32 rsv1 : 5;
+        U32 cond : 4;
+    }multply_long;
+
+    //Single Data Swap
+    union
+    {
+        U32 Rm : 4;
+        U32 rsv1 : 8;
+        U32 Rd : 4;
+        U32 Rn : 4;
+        U32 rsv2 : 2;
+        U32 B : 1;
+        U32 rsv : 5;
+        U32 cond : 4;
+    }single_data_swap;
+
+    //Branch and Exchange
+    union
+    {
+        U32 Rn : 4;
+        U32 rsv : 24;
+        U32 cond : 4;
+    }branch_exchange;
+
+    //Halfword Data Transfer : register offset
+    union
+    {
+        U32 Rm : 4;
+        U32 rsv1 : 1;
+        U32 H : 1;
+        U32 S : 1;
+        U32 rsv2 : 5;
+        U32 Rd : 4;
+        U32 Rn : 4;
+        U32 L : 1;
+        U32 W : 1;
+        U32 rsv3 : 1;
+        U32 U : 1;
+        U32 P : 1;
+        U32 rsv4 : 3;
+        U32 cond : 4;
+    }hlf_data_tsf_reg_ofst;
+
+    //Halfword Data Transfer : immediate offset
+    union
+    {
+        U32 offset0 : 4;
+        U32 rsv1 : 1;
+        U32 H : 1;
+        U32 S : 1;
+        U32 rsv2 : 1;
+        U32 offset1 : 4;
+        U32 Rd : 4;
+        U32 Rn : 4;
+        U32 L : 1;
+        U32 W : 1;
+        U32 rsv3 : 1;
+        U32 U : 1;
+        U32 P : 1;
+        U32 rsv4 : 3;
+        U32 cond : 4;
+    }hlf_data_tsf_imm_ofst;
+
+    //Single Data Transfer
+    union
+    {
+        U32 offset : 12;
+        U32 Rd : 4;
+        U32 Rn : 4;
+        U32 L : 1;
+        U32 W : 1;
+        U32 B : 1;
+        U32 U : 1;
+        U32 P : 1;
+        U32 rsv : 3;
+        U32 cond : 4;
+    }single_data_tsf;
+
+    //Undefined
+    union
+    {
+        U32 rsv1 : 28;
+        U32 cond : 4;
+    }undefined;
+
+    //Block Data Transfer
+    union
+    {
+        U32 reg_list : 16;
+        U32 Rn : 4;
+        U32 L : 1;
+        U32 W : 1;
+        U32 B : 1;
+        U32 U : 1;
+        U32 P : 1;
+        U32 rsv : 3;
+        U32 cond : 4;
+    }blk_data_tsf;
+
+    //Branch
+    union
+    {
+        U32 offset : 24;
+        U32 L : 1;
+        U32 rsv : 3;
+        U32 cond : 4;
+    }branch;
+
+    //Coprocessor Data Transfer
+    union
+    {
+        U32 offset : 8;
+        U32 CPn : 4;
+        U32 CRd : 4;
+        U32 Rn : 4;
+        U32 L : 1;
+        U32 W : 1;
+        U32 N : 1;
+        U32 U : 1;
+        U32 P : 1;
+        U32 rsv : 3;
+        U32 cond : 4;
+    }cop_data_tfr;
+
+    //Coprocessor Data Operation
+    union
+    {
+        U32 CRm : 4;
+        U32 rsv0 : 1;
+        U32 CP : 3;
+        U32 CPn : 4;
+        U32 CPd : 4;
+        U32 CRn : 4;
+        U32 CP_opc : 4;
+        U32 rsv1 : 4;
+        U32 cond : 4;
+
+    }cop_data_op;
+
+    //Coprocessor Register Transfer
+    union
+    {
+        U32 CRm : 4;
+        U32 rsv0 : 1;
+        U32 CP : 3;
+        U32 CPn : 4;
+        U32 CPd : 4;
+        U32 CRn : 4;
+        U32 rsv1 : 1;
+        U32 CP_opc : 3;
+        U32 rsv2 : 4;
+        U32 cond : 4;
+    }cop_reg_tfr;
+
+
+    //Software Interrupt
+    union
+    {
+        U32 rsv : 28;
+        U32 cond : 4;
+    }sw_int;
+
+
+}INSTRUCTION_FORMAT;
+
+
+
+
 typedef struct cartridge_rom_header
 {
     U32 rom_entry_point;
@@ -734,4 +986,7 @@ public:
     void LDC_unp(INSTRUCTION_FORMAT*);
     void STC_ptp(INSTRUCTION_FORMAT*);
     void LDC_ptp(INSTRUCTION_FORMAT*);
+	
+	
+
 };
