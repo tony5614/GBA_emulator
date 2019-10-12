@@ -1726,409 +1726,841 @@ void GBA_EMUALTOR_ARM7TDMI::ADDS_rrr(INSTRUCTION_FORMAT *instruction_ptr)
     this->CPSR_usr.V = (Rd_prev_val < this->R[Rd]) ? 1 : 0;
 }
 
-void GBA_EMUALTOR_ARM7TDMI::ADC_lli(INSTRUCTION_FORMAT *instruction_ptr) {}
-void GBA_EMUALTOR_ARM7TDMI::ADC_llr(INSTRUCTION_FORMAT *instruction_ptr) {}
-void GBA_EMUALTOR_ARM7TDMI::ADC_lri(INSTRUCTION_FORMAT *instruction_ptr) {}
-void GBA_EMUALTOR_ARM7TDMI::ADC_lrr(INSTRUCTION_FORMAT *instruction_ptr) {}
-void GBA_EMUALTOR_ARM7TDMI::ADC_ari(INSTRUCTION_FORMAT *instruction_ptr) {}
-void GBA_EMUALTOR_ARM7TDMI::ADC_arr(INSTRUCTION_FORMAT *instruction_ptr) {}
-void GBA_EMUALTOR_ARM7TDMI::ADC_rri(INSTRUCTION_FORMAT *instruction_ptr) {}
-void GBA_EMUALTOR_ARM7TDMI::ADC_rrr(INSTRUCTION_FORMAT *instruction_ptr) {}
+void GBA_EMUALTOR_ARM7TDMI::ADC_lli(INSTRUCTION_FORMAT *instruction_ptr) 
+{
+}
 
-void GBA_EMUALTOR_ARM7TDMI::ADCS_lli(INSTRUCTION_FORMAT *instruction_ptr) {}
-void GBA_EMUALTOR_ARM7TDMI::ADCS_llr(INSTRUCTION_FORMAT *instruction_ptr) {}
-void GBA_EMUALTOR_ARM7TDMI::ADCS_lri(INSTRUCTION_FORMAT *instruction_ptr) {}
-void GBA_EMUALTOR_ARM7TDMI::ADCS_lrr(INSTRUCTION_FORMAT *instruction_ptr) {}
-void GBA_EMUALTOR_ARM7TDMI::ADCS_ari(INSTRUCTION_FORMAT *instruction_ptr) {}
-void GBA_EMUALTOR_ARM7TDMI::ADCS_arr(INSTRUCTION_FORMAT *instruction_ptr) {}
-void GBA_EMUALTOR_ARM7TDMI::ADCS_rri(INSTRUCTION_FORMAT *instruction_ptr) {}
-void GBA_EMUALTOR_ARM7TDMI::ADCS_rrr(INSTRUCTION_FORMAT *instruction_ptr) {}
+void GBA_EMUALTOR_ARM7TDMI::ADC_llr(INSTRUCTION_FORMAT *instruction_ptr) 
+{
+}
 
-void GBA_EMUALTOR_ARM7TDMI::SBC_lli(INSTRUCTION_FORMAT *instruction_ptr) {}
-void GBA_EMUALTOR_ARM7TDMI::SBC_llr(INSTRUCTION_FORMAT *instruction_ptr) {}
-void GBA_EMUALTOR_ARM7TDMI::SBC_lri(INSTRUCTION_FORMAT *instruction_ptr) {}
-void GBA_EMUALTOR_ARM7TDMI::SBC_lrr(INSTRUCTION_FORMAT *instruction_ptr) {}
-void GBA_EMUALTOR_ARM7TDMI::SBC_ari(INSTRUCTION_FORMAT *instruction_ptr) {}
-void GBA_EMUALTOR_ARM7TDMI::SBC_arr(INSTRUCTION_FORMAT *instruction_ptr) {}
-void GBA_EMUALTOR_ARM7TDMI::SBC_rri(INSTRUCTION_FORMAT *instruction_ptr) {}
-void GBA_EMUALTOR_ARM7TDMI::SBC_rrr(INSTRUCTION_FORMAT *instruction_ptr) {}
+void GBA_EMUALTOR_ARM7TDMI::ADC_lri(INSTRUCTION_FORMAT *instruction_ptr) 
+{
+}
 
-void GBA_EMUALTOR_ARM7TDMI::SBCS_lli(INSTRUCTION_FORMAT *instruction_ptr) {}
-void GBA_EMUALTOR_ARM7TDMI::SBCS_llr(INSTRUCTION_FORMAT *instruction_ptr) {}
-void GBA_EMUALTOR_ARM7TDMI::SBCS_lri(INSTRUCTION_FORMAT *instruction_ptr) {}
-void GBA_EMUALTOR_ARM7TDMI::SBCS_lrr(INSTRUCTION_FORMAT *instruction_ptr) {}
-void GBA_EMUALTOR_ARM7TDMI::SBCS_ari(INSTRUCTION_FORMAT *instruction_ptr) {}
-void GBA_EMUALTOR_ARM7TDMI::SBCS_arr(INSTRUCTION_FORMAT *instruction_ptr) {}
-void GBA_EMUALTOR_ARM7TDMI::SBCS_rri(INSTRUCTION_FORMAT *instruction_ptr) {}
-void GBA_EMUALTOR_ARM7TDMI::SBCS_rrr(INSTRUCTION_FORMAT *instruction_ptr) {}
+void GBA_EMUALTOR_ARM7TDMI::ADC_lrr(INSTRUCTION_FORMAT *instruction_ptr) 
+{
+}
 
-void GBA_EMUALTOR_ARM7TDMI::RSC_lli(INSTRUCTION_FORMAT *instruction_ptr) {}
-void GBA_EMUALTOR_ARM7TDMI::RSC_llr(INSTRUCTION_FORMAT *instruction_ptr) {}
-void GBA_EMUALTOR_ARM7TDMI::RSC_lri(INSTRUCTION_FORMAT *instruction_ptr) {}
-void GBA_EMUALTOR_ARM7TDMI::RSC_lrr(INSTRUCTION_FORMAT *instruction_ptr) {}
-void GBA_EMUALTOR_ARM7TDMI::RSC_ari(INSTRUCTION_FORMAT *instruction_ptr) {}
-void GBA_EMUALTOR_ARM7TDMI::RSC_arr(INSTRUCTION_FORMAT *instruction_ptr) {}
-void GBA_EMUALTOR_ARM7TDMI::RSC_rri(INSTRUCTION_FORMAT *instruction_ptr) {}
-void GBA_EMUALTOR_ARM7TDMI::RSC_rrr(INSTRUCTION_FORMAT *instruction_ptr) {}
+void GBA_EMUALTOR_ARM7TDMI::ADC_ari(INSTRUCTION_FORMAT *instruction_ptr) 
+{
+}
 
-void GBA_EMUALTOR_ARM7TDMI::RSCS_lli(INSTRUCTION_FORMAT *instruction_ptr) {}
-void GBA_EMUALTOR_ARM7TDMI::RSCS_llr(INSTRUCTION_FORMAT *instruction_ptr) {}
-void GBA_EMUALTOR_ARM7TDMI::RSCS_lri(INSTRUCTION_FORMAT *instruction_ptr) {}
-void GBA_EMUALTOR_ARM7TDMI::RSCS_lrr(INSTRUCTION_FORMAT *instruction_ptr) {}
-void GBA_EMUALTOR_ARM7TDMI::RSCS_ari(INSTRUCTION_FORMAT *instruction_ptr) {}
-void GBA_EMUALTOR_ARM7TDMI::RSCS_arr(INSTRUCTION_FORMAT *instruction_ptr) {}
-void GBA_EMUALTOR_ARM7TDMI::RSCS_rri(INSTRUCTION_FORMAT *instruction_ptr) {}
-void GBA_EMUALTOR_ARM7TDMI::RSCS_rrr(INSTRUCTION_FORMAT *instruction_ptr) {}
+void GBA_EMUALTOR_ARM7TDMI::ADC_arr(INSTRUCTION_FORMAT *instruction_ptr) 
+{
+}
 
-void GBA_EMUALTOR_ARM7TDMI::TSTS_lli(INSTRUCTION_FORMAT *instruction_ptr) {}
-void GBA_EMUALTOR_ARM7TDMI::TSTS_llr(INSTRUCTION_FORMAT *instruction_ptr) {}
-void GBA_EMUALTOR_ARM7TDMI::TSTS_lri(INSTRUCTION_FORMAT *instruction_ptr) {}
-void GBA_EMUALTOR_ARM7TDMI::TSTS_lrr(INSTRUCTION_FORMAT *instruction_ptr) {}
-void GBA_EMUALTOR_ARM7TDMI::TSTS_ari(INSTRUCTION_FORMAT *instruction_ptr) {}
-void GBA_EMUALTOR_ARM7TDMI::TSTS_arr(INSTRUCTION_FORMAT *instruction_ptr) {}
-void GBA_EMUALTOR_ARM7TDMI::TSTS_rri(INSTRUCTION_FORMAT *instruction_ptr) {}
-void GBA_EMUALTOR_ARM7TDMI::TSTS_rrr(INSTRUCTION_FORMAT *instruction_ptr) {}
+void GBA_EMUALTOR_ARM7TDMI::ADC_rri(INSTRUCTION_FORMAT *instruction_ptr) 
+{
+}
 
-void GBA_EMUALTOR_ARM7TDMI::TEQS_lli(INSTRUCTION_FORMAT *instruction_ptr) {}
-void GBA_EMUALTOR_ARM7TDMI::TEQS_llr(INSTRUCTION_FORMAT *instruction_ptr) {}
-void GBA_EMUALTOR_ARM7TDMI::TEQS_lri(INSTRUCTION_FORMAT *instruction_ptr) {}
-void GBA_EMUALTOR_ARM7TDMI::TEQS_lrr(INSTRUCTION_FORMAT *instruction_ptr) {}
-void GBA_EMUALTOR_ARM7TDMI::TEQS_ari(INSTRUCTION_FORMAT *instruction_ptr) {}
-void GBA_EMUALTOR_ARM7TDMI::TEQS_arr(INSTRUCTION_FORMAT *instruction_ptr) {}
-void GBA_EMUALTOR_ARM7TDMI::TEQS_rri(INSTRUCTION_FORMAT *instruction_ptr) {}
-void GBA_EMUALTOR_ARM7TDMI::TEQS_rrr(INSTRUCTION_FORMAT *instruction_ptr) {}
+void GBA_EMUALTOR_ARM7TDMI::ADC_rrr(INSTRUCTION_FORMAT *instruction_ptr) 
+{
+}
 
-void GBA_EMUALTOR_ARM7TDMI::CMPS_lli(INSTRUCTION_FORMAT *instruction_ptr) {}
-void GBA_EMUALTOR_ARM7TDMI::CMPS_llr(INSTRUCTION_FORMAT *instruction_ptr) {}
-void GBA_EMUALTOR_ARM7TDMI::CMPS_lri(INSTRUCTION_FORMAT *instruction_ptr) {}
-void GBA_EMUALTOR_ARM7TDMI::CMPS_lrr(INSTRUCTION_FORMAT *instruction_ptr) {}
-void GBA_EMUALTOR_ARM7TDMI::CMPS_ari(INSTRUCTION_FORMAT *instruction_ptr) {}
-void GBA_EMUALTOR_ARM7TDMI::CMPS_arr(INSTRUCTION_FORMAT *instruction_ptr) {}
-void GBA_EMUALTOR_ARM7TDMI::CMPS_rri(INSTRUCTION_FORMAT *instruction_ptr) {}
-void GBA_EMUALTOR_ARM7TDMI::CMPS_rrr(INSTRUCTION_FORMAT *instruction_ptr) {}
 
-void GBA_EMUALTOR_ARM7TDMI::CMNS_lli(INSTRUCTION_FORMAT *instruction_ptr) {}
-void GBA_EMUALTOR_ARM7TDMI::CMNS_llr(INSTRUCTION_FORMAT *instruction_ptr) {}
-void GBA_EMUALTOR_ARM7TDMI::CMNS_lri(INSTRUCTION_FORMAT *instruction_ptr) {}
-void GBA_EMUALTOR_ARM7TDMI::CMNS_lrr(INSTRUCTION_FORMAT *instruction_ptr) {}
-void GBA_EMUALTOR_ARM7TDMI::CMNS_ari(INSTRUCTION_FORMAT *instruction_ptr) {}
-void GBA_EMUALTOR_ARM7TDMI::CMNS_arr(INSTRUCTION_FORMAT *instruction_ptr) {}
-void GBA_EMUALTOR_ARM7TDMI::CMNS_rri(INSTRUCTION_FORMAT *instruction_ptr) {}
-void GBA_EMUALTOR_ARM7TDMI::CMNS_rrr(INSTRUCTION_FORMAT *instruction_ptr) {}
+void GBA_EMUALTOR_ARM7TDMI::ADCS_lli(INSTRUCTION_FORMAT *instruction_ptr) 
+{
+}
 
-void GBA_EMUALTOR_ARM7TDMI::ORR_lli(INSTRUCTION_FORMAT *instruction_ptr) {}
-void GBA_EMUALTOR_ARM7TDMI::ORR_llr(INSTRUCTION_FORMAT *instruction_ptr) {}
-void GBA_EMUALTOR_ARM7TDMI::ORR_lri(INSTRUCTION_FORMAT *instruction_ptr) {}
-void GBA_EMUALTOR_ARM7TDMI::ORR_lrr(INSTRUCTION_FORMAT *instruction_ptr) {}
-void GBA_EMUALTOR_ARM7TDMI::ORR_ari(INSTRUCTION_FORMAT *instruction_ptr) {}
-void GBA_EMUALTOR_ARM7TDMI::ORR_arr(INSTRUCTION_FORMAT *instruction_ptr) {}
-void GBA_EMUALTOR_ARM7TDMI::ORR_rri(INSTRUCTION_FORMAT *instruction_ptr) {}
-void GBA_EMUALTOR_ARM7TDMI::ORR_rrr(INSTRUCTION_FORMAT *instruction_ptr) {}
+void GBA_EMUALTOR_ARM7TDMI::ADCS_llr(INSTRUCTION_FORMAT *instruction_ptr) 
+{
+}
 
-void GBA_EMUALTOR_ARM7TDMI::ORRS_lli(INSTRUCTION_FORMAT *instruction_ptr) {}
-void GBA_EMUALTOR_ARM7TDMI::ORRS_llr(INSTRUCTION_FORMAT *instruction_ptr) {}
-void GBA_EMUALTOR_ARM7TDMI::ORRS_lri(INSTRUCTION_FORMAT *instruction_ptr) {}
-void GBA_EMUALTOR_ARM7TDMI::ORRS_lrr(INSTRUCTION_FORMAT *instruction_ptr) {}
-void GBA_EMUALTOR_ARM7TDMI::ORRS_ari(INSTRUCTION_FORMAT *instruction_ptr) {}
-void GBA_EMUALTOR_ARM7TDMI::ORRS_arr(INSTRUCTION_FORMAT *instruction_ptr) {}
-void GBA_EMUALTOR_ARM7TDMI::ORRS_rri(INSTRUCTION_FORMAT *instruction_ptr) {}
-void GBA_EMUALTOR_ARM7TDMI::ORRS_rrr(INSTRUCTION_FORMAT *instruction_ptr) {}
+void GBA_EMUALTOR_ARM7TDMI::ADCS_lri(INSTRUCTION_FORMAT *instruction_ptr) 
+{
+}
 
-void GBA_EMUALTOR_ARM7TDMI::MOV_lli(INSTRUCTION_FORMAT *instruction_ptr) {}
-void GBA_EMUALTOR_ARM7TDMI::MOV_llr(INSTRUCTION_FORMAT *instruction_ptr) {}
-void GBA_EMUALTOR_ARM7TDMI::MOV_lri(INSTRUCTION_FORMAT *instruction_ptr) {}
-void GBA_EMUALTOR_ARM7TDMI::MOV_lrr(INSTRUCTION_FORMAT *instruction_ptr) {}
-void GBA_EMUALTOR_ARM7TDMI::MOV_ari(INSTRUCTION_FORMAT *instruction_ptr) {}
-void GBA_EMUALTOR_ARM7TDMI::MOV_arr(INSTRUCTION_FORMAT *instruction_ptr) {}
-void GBA_EMUALTOR_ARM7TDMI::MOV_rri(INSTRUCTION_FORMAT *instruction_ptr) {}
-void GBA_EMUALTOR_ARM7TDMI::MOV_rrr(INSTRUCTION_FORMAT *instruction_ptr) {}
+void GBA_EMUALTOR_ARM7TDMI::ADCS_lrr(INSTRUCTION_FORMAT *instruction_ptr) 
+{
+}
 
-void GBA_EMUALTOR_ARM7TDMI::MOVS_lli(INSTRUCTION_FORMAT *instruction_ptr) {}
-void GBA_EMUALTOR_ARM7TDMI::MOVS_llr(INSTRUCTION_FORMAT *instruction_ptr) {}
-void GBA_EMUALTOR_ARM7TDMI::MOVS_lri(INSTRUCTION_FORMAT *instruction_ptr) {}
-void GBA_EMUALTOR_ARM7TDMI::MOVS_lrr(INSTRUCTION_FORMAT *instruction_ptr) {}
-void GBA_EMUALTOR_ARM7TDMI::MOVS_ari(INSTRUCTION_FORMAT *instruction_ptr) {}
-void GBA_EMUALTOR_ARM7TDMI::MOVS_arr(INSTRUCTION_FORMAT *instruction_ptr) {}
-void GBA_EMUALTOR_ARM7TDMI::MOVS_rri(INSTRUCTION_FORMAT *instruction_ptr) {}
-void GBA_EMUALTOR_ARM7TDMI::MOVS_rrr(INSTRUCTION_FORMAT *instruction_ptr) {}
+void GBA_EMUALTOR_ARM7TDMI::ADCS_ari(INSTRUCTION_FORMAT *instruction_ptr) 
+{
+}
 
-void GBA_EMUALTOR_ARM7TDMI::BIC_lli(INSTRUCTION_FORMAT *instruction_ptr) {}
-void GBA_EMUALTOR_ARM7TDMI::BIC_llr(INSTRUCTION_FORMAT *instruction_ptr) {}
-void GBA_EMUALTOR_ARM7TDMI::BIC_lri(INSTRUCTION_FORMAT *instruction_ptr) {}
-void GBA_EMUALTOR_ARM7TDMI::BIC_lrr(INSTRUCTION_FORMAT *instruction_ptr) {}
-void GBA_EMUALTOR_ARM7TDMI::BIC_ari(INSTRUCTION_FORMAT *instruction_ptr) {}
-void GBA_EMUALTOR_ARM7TDMI::BIC_arr(INSTRUCTION_FORMAT *instruction_ptr) {}
-void GBA_EMUALTOR_ARM7TDMI::BIC_rri(INSTRUCTION_FORMAT *instruction_ptr) {}
-void GBA_EMUALTOR_ARM7TDMI::BIC_rrr(INSTRUCTION_FORMAT *instruction_ptr) {}
+void GBA_EMUALTOR_ARM7TDMI::ADCS_arr(INSTRUCTION_FORMAT *instruction_ptr) 
+{
+}
 
-void GBA_EMUALTOR_ARM7TDMI::BICS_lli(INSTRUCTION_FORMAT *instruction_ptr) {}
-void GBA_EMUALTOR_ARM7TDMI::BICS_llr(INSTRUCTION_FORMAT *instruction_ptr) {}
-void GBA_EMUALTOR_ARM7TDMI::BICS_lri(INSTRUCTION_FORMAT *instruction_ptr) {}
-void GBA_EMUALTOR_ARM7TDMI::BICS_lrr(INSTRUCTION_FORMAT *instruction_ptr) {}
-void GBA_EMUALTOR_ARM7TDMI::BICS_ari(INSTRUCTION_FORMAT *instruction_ptr) {}
-void GBA_EMUALTOR_ARM7TDMI::BICS_arr(INSTRUCTION_FORMAT *instruction_ptr) {}
-void GBA_EMUALTOR_ARM7TDMI::BICS_rri(INSTRUCTION_FORMAT *instruction_ptr) {}
-void GBA_EMUALTOR_ARM7TDMI::BICS_rrr(INSTRUCTION_FORMAT *instruction_ptr) {}
+void GBA_EMUALTOR_ARM7TDMI::ADCS_rri(INSTRUCTION_FORMAT *instruction_ptr) 
+{
+}
 
-void GBA_EMUALTOR_ARM7TDMI::MVM_lli(INSTRUCTION_FORMAT *instruction_ptr) {}
-void GBA_EMUALTOR_ARM7TDMI::MVM_llr(INSTRUCTION_FORMAT *instruction_ptr) {}
-void GBA_EMUALTOR_ARM7TDMI::MVM_lri(INSTRUCTION_FORMAT *instruction_ptr) {}
-void GBA_EMUALTOR_ARM7TDMI::MVM_lrr(INSTRUCTION_FORMAT *instruction_ptr) {}
-void GBA_EMUALTOR_ARM7TDMI::MVM_ari(INSTRUCTION_FORMAT *instruction_ptr) {}
-void GBA_EMUALTOR_ARM7TDMI::MVM_arr(INSTRUCTION_FORMAT *instruction_ptr) {}
-void GBA_EMUALTOR_ARM7TDMI::MVM_rri(INSTRUCTION_FORMAT *instruction_ptr) {}
-void GBA_EMUALTOR_ARM7TDMI::MVM_rrr(INSTRUCTION_FORMAT *instruction_ptr) {}
+void GBA_EMUALTOR_ARM7TDMI::ADCS_rrr(INSTRUCTION_FORMAT *instruction_ptr) 
+{
+}
 
-void GBA_EMUALTOR_ARM7TDMI::MVMS_lli(INSTRUCTION_FORMAT *instruction_ptr) {}
-void GBA_EMUALTOR_ARM7TDMI::MVMS_llr(INSTRUCTION_FORMAT *instruction_ptr) {}
-void GBA_EMUALTOR_ARM7TDMI::MVMS_lri(INSTRUCTION_FORMAT *instruction_ptr) {}
-void GBA_EMUALTOR_ARM7TDMI::MVMS_lrr(INSTRUCTION_FORMAT *instruction_ptr) {}
-void GBA_EMUALTOR_ARM7TDMI::MVMS_ari(INSTRUCTION_FORMAT *instruction_ptr) {}
-void GBA_EMUALTOR_ARM7TDMI::MVMS_arr(INSTRUCTION_FORMAT *instruction_ptr) {}
-void GBA_EMUALTOR_ARM7TDMI::MVMS_rri(INSTRUCTION_FORMAT *instruction_ptr) {}
-void GBA_EMUALTOR_ARM7TDMI::MVMS_rrr(INSTRUCTION_FORMAT *instruction_ptr) {}
+
+void GBA_EMUALTOR_ARM7TDMI::SBC_lli(INSTRUCTION_FORMAT *instruction_ptr) 
+{
+}
+
+void GBA_EMUALTOR_ARM7TDMI::SBC_llr(INSTRUCTION_FORMAT *instruction_ptr) 
+{
+}
+
+void GBA_EMUALTOR_ARM7TDMI::SBC_lri(INSTRUCTION_FORMAT *instruction_ptr) 
+{
+}
+
+void GBA_EMUALTOR_ARM7TDMI::SBC_lrr(INSTRUCTION_FORMAT *instruction_ptr) 
+{
+}
+
+void GBA_EMUALTOR_ARM7TDMI::SBC_ari(INSTRUCTION_FORMAT *instruction_ptr) 
+{
+}
+
+void GBA_EMUALTOR_ARM7TDMI::SBC_arr(INSTRUCTION_FORMAT *instruction_ptr) 
+{
+}
+
+void GBA_EMUALTOR_ARM7TDMI::SBC_rri(INSTRUCTION_FORMAT *instruction_ptr) 
+{
+}
+
+void GBA_EMUALTOR_ARM7TDMI::SBC_rrr(INSTRUCTION_FORMAT *instruction_ptr) 
+{
+}
+
+
+void GBA_EMUALTOR_ARM7TDMI::SBCS_lli(INSTRUCTION_FORMAT *instruction_ptr) 
+{
+}
+
+void GBA_EMUALTOR_ARM7TDMI::SBCS_llr(INSTRUCTION_FORMAT *instruction_ptr) 
+{
+}
+
+void GBA_EMUALTOR_ARM7TDMI::SBCS_lri(INSTRUCTION_FORMAT *instruction_ptr) 
+{
+}
+
+void GBA_EMUALTOR_ARM7TDMI::SBCS_lrr(INSTRUCTION_FORMAT *instruction_ptr) 
+{
+}
+
+void GBA_EMUALTOR_ARM7TDMI::SBCS_ari(INSTRUCTION_FORMAT *instruction_ptr) 
+{
+}
+
+void GBA_EMUALTOR_ARM7TDMI::SBCS_arr(INSTRUCTION_FORMAT *instruction_ptr) 
+{
+}
+
+void GBA_EMUALTOR_ARM7TDMI::SBCS_rri(INSTRUCTION_FORMAT *instruction_ptr) 
+{
+}
+
+void GBA_EMUALTOR_ARM7TDMI::SBCS_rrr(INSTRUCTION_FORMAT *instruction_ptr) 
+{
+}
+
+
+void GBA_EMUALTOR_ARM7TDMI::RSC_lli(INSTRUCTION_FORMAT *instruction_ptr) 
+{
+}
+
+void GBA_EMUALTOR_ARM7TDMI::RSC_llr(INSTRUCTION_FORMAT *instruction_ptr) 
+{
+}
+
+void GBA_EMUALTOR_ARM7TDMI::RSC_lri(INSTRUCTION_FORMAT *instruction_ptr) 
+{
+}
+
+void GBA_EMUALTOR_ARM7TDMI::RSC_lrr(INSTRUCTION_FORMAT *instruction_ptr) 
+{
+}
+
+void GBA_EMUALTOR_ARM7TDMI::RSC_ari(INSTRUCTION_FORMAT *instruction_ptr) 
+{
+}
+
+void GBA_EMUALTOR_ARM7TDMI::RSC_arr(INSTRUCTION_FORMAT *instruction_ptr) 
+{
+}
+
+void GBA_EMUALTOR_ARM7TDMI::RSC_rri(INSTRUCTION_FORMAT *instruction_ptr) 
+{
+}
+
+void GBA_EMUALTOR_ARM7TDMI::RSC_rrr(INSTRUCTION_FORMAT *instruction_ptr) 
+{
+}
+
+
+void GBA_EMUALTOR_ARM7TDMI::RSCS_lli(INSTRUCTION_FORMAT *instruction_ptr) 
+{
+}
+
+void GBA_EMUALTOR_ARM7TDMI::RSCS_llr(INSTRUCTION_FORMAT *instruction_ptr) 
+{
+}
+
+void GBA_EMUALTOR_ARM7TDMI::RSCS_lri(INSTRUCTION_FORMAT *instruction_ptr) 
+{
+}
+
+void GBA_EMUALTOR_ARM7TDMI::RSCS_lrr(INSTRUCTION_FORMAT *instruction_ptr) 
+{
+}
+
+void GBA_EMUALTOR_ARM7TDMI::RSCS_ari(INSTRUCTION_FORMAT *instruction_ptr) 
+{
+}
+
+void GBA_EMUALTOR_ARM7TDMI::RSCS_arr(INSTRUCTION_FORMAT *instruction_ptr) 
+{
+}
+
+void GBA_EMUALTOR_ARM7TDMI::RSCS_rri(INSTRUCTION_FORMAT *instruction_ptr) 
+{
+}
+
+void GBA_EMUALTOR_ARM7TDMI::RSCS_rrr(INSTRUCTION_FORMAT *instruction_ptr) 
+{
+}
+
+
+void GBA_EMUALTOR_ARM7TDMI::TSTS_lli(INSTRUCTION_FORMAT *instruction_ptr) 
+{
+}
+
+void GBA_EMUALTOR_ARM7TDMI::TSTS_llr(INSTRUCTION_FORMAT *instruction_ptr) 
+{
+}
+
+void GBA_EMUALTOR_ARM7TDMI::TSTS_lri(INSTRUCTION_FORMAT *instruction_ptr) 
+{
+}
+
+void GBA_EMUALTOR_ARM7TDMI::TSTS_lrr(INSTRUCTION_FORMAT *instruction_ptr) 
+{
+}
+
+void GBA_EMUALTOR_ARM7TDMI::TSTS_ari(INSTRUCTION_FORMAT *instruction_ptr) 
+{
+}
+
+void GBA_EMUALTOR_ARM7TDMI::TSTS_arr(INSTRUCTION_FORMAT *instruction_ptr) 
+{
+}
+
+void GBA_EMUALTOR_ARM7TDMI::TSTS_rri(INSTRUCTION_FORMAT *instruction_ptr) 
+{
+}
+
+void GBA_EMUALTOR_ARM7TDMI::TSTS_rrr(INSTRUCTION_FORMAT *instruction_ptr) 
+{
+}
+
+
+void GBA_EMUALTOR_ARM7TDMI::TEQS_lli(INSTRUCTION_FORMAT *instruction_ptr) 
+{
+}
+
+void GBA_EMUALTOR_ARM7TDMI::TEQS_llr(INSTRUCTION_FORMAT *instruction_ptr) 
+{
+}
+
+void GBA_EMUALTOR_ARM7TDMI::TEQS_lri(INSTRUCTION_FORMAT *instruction_ptr) 
+{
+}
+
+void GBA_EMUALTOR_ARM7TDMI::TEQS_lrr(INSTRUCTION_FORMAT *instruction_ptr) 
+{
+}
+
+void GBA_EMUALTOR_ARM7TDMI::TEQS_ari(INSTRUCTION_FORMAT *instruction_ptr) 
+{
+}
+
+void GBA_EMUALTOR_ARM7TDMI::TEQS_arr(INSTRUCTION_FORMAT *instruction_ptr) 
+{
+}
+
+void GBA_EMUALTOR_ARM7TDMI::TEQS_rri(INSTRUCTION_FORMAT *instruction_ptr) 
+{
+}
+
+void GBA_EMUALTOR_ARM7TDMI::TEQS_rrr(INSTRUCTION_FORMAT *instruction_ptr) 
+{
+}
+
+
+void GBA_EMUALTOR_ARM7TDMI::CMPS_lli(INSTRUCTION_FORMAT *instruction_ptr) 
+{
+}
+
+void GBA_EMUALTOR_ARM7TDMI::CMPS_llr(INSTRUCTION_FORMAT *instruction_ptr) 
+{
+}
+
+void GBA_EMUALTOR_ARM7TDMI::CMPS_lri(INSTRUCTION_FORMAT *instruction_ptr) 
+{
+}
+
+void GBA_EMUALTOR_ARM7TDMI::CMPS_lrr(INSTRUCTION_FORMAT *instruction_ptr) 
+{
+}
+
+void GBA_EMUALTOR_ARM7TDMI::CMPS_ari(INSTRUCTION_FORMAT *instruction_ptr) 
+{
+}
+
+void GBA_EMUALTOR_ARM7TDMI::CMPS_arr(INSTRUCTION_FORMAT *instruction_ptr) 
+{
+}
+
+void GBA_EMUALTOR_ARM7TDMI::CMPS_rri(INSTRUCTION_FORMAT *instruction_ptr) 
+{
+}
+
+void GBA_EMUALTOR_ARM7TDMI::CMPS_rrr(INSTRUCTION_FORMAT *instruction_ptr) 
+{
+}
+
+
+void GBA_EMUALTOR_ARM7TDMI::CMNS_lli(INSTRUCTION_FORMAT *instruction_ptr) 
+{
+}
+
+void GBA_EMUALTOR_ARM7TDMI::CMNS_llr(INSTRUCTION_FORMAT *instruction_ptr) 
+{
+}
+
+void GBA_EMUALTOR_ARM7TDMI::CMNS_lri(INSTRUCTION_FORMAT *instruction_ptr) 
+{
+}
+
+void GBA_EMUALTOR_ARM7TDMI::CMNS_lrr(INSTRUCTION_FORMAT *instruction_ptr) 
+{
+}
+
+void GBA_EMUALTOR_ARM7TDMI::CMNS_ari(INSTRUCTION_FORMAT *instruction_ptr) 
+{
+}
+
+void GBA_EMUALTOR_ARM7TDMI::CMNS_arr(INSTRUCTION_FORMAT *instruction_ptr) 
+{
+}
+
+void GBA_EMUALTOR_ARM7TDMI::CMNS_rri(INSTRUCTION_FORMAT *instruction_ptr) 
+{
+}
+
+void GBA_EMUALTOR_ARM7TDMI::CMNS_rrr(INSTRUCTION_FORMAT *instruction_ptr) 
+{
+}
+
+
+void GBA_EMUALTOR_ARM7TDMI::ORR_lli(INSTRUCTION_FORMAT *instruction_ptr) 
+{
+}
+
+void GBA_EMUALTOR_ARM7TDMI::ORR_llr(INSTRUCTION_FORMAT *instruction_ptr) 
+{
+}
+
+void GBA_EMUALTOR_ARM7TDMI::ORR_lri(INSTRUCTION_FORMAT *instruction_ptr) 
+{
+}
+
+void GBA_EMUALTOR_ARM7TDMI::ORR_lrr(INSTRUCTION_FORMAT *instruction_ptr) 
+{
+}
+
+void GBA_EMUALTOR_ARM7TDMI::ORR_ari(INSTRUCTION_FORMAT *instruction_ptr) 
+{
+}
+
+void GBA_EMUALTOR_ARM7TDMI::ORR_arr(INSTRUCTION_FORMAT *instruction_ptr) 
+{
+}
+
+void GBA_EMUALTOR_ARM7TDMI::ORR_rri(INSTRUCTION_FORMAT *instruction_ptr) 
+{
+}
+
+void GBA_EMUALTOR_ARM7TDMI::ORR_rrr(INSTRUCTION_FORMAT *instruction_ptr) 
+{
+}
+
+
+void GBA_EMUALTOR_ARM7TDMI::ORRS_lli(INSTRUCTION_FORMAT *instruction_ptr) 
+{
+}
+
+void GBA_EMUALTOR_ARM7TDMI::ORRS_llr(INSTRUCTION_FORMAT *instruction_ptr) 
+{
+}
+
+void GBA_EMUALTOR_ARM7TDMI::ORRS_lri(INSTRUCTION_FORMAT *instruction_ptr) 
+{
+}
+
+void GBA_EMUALTOR_ARM7TDMI::ORRS_lrr(INSTRUCTION_FORMAT *instruction_ptr) 
+{
+}
+
+void GBA_EMUALTOR_ARM7TDMI::ORRS_ari(INSTRUCTION_FORMAT *instruction_ptr) 
+{
+}
+
+void GBA_EMUALTOR_ARM7TDMI::ORRS_arr(INSTRUCTION_FORMAT *instruction_ptr) 
+{
+}
+
+void GBA_EMUALTOR_ARM7TDMI::ORRS_rri(INSTRUCTION_FORMAT *instruction_ptr) 
+{
+}
+
+void GBA_EMUALTOR_ARM7TDMI::ORRS_rrr(INSTRUCTION_FORMAT *instruction_ptr) 
+{
+}
+
+
+void GBA_EMUALTOR_ARM7TDMI::MOV_lli(INSTRUCTION_FORMAT *instruction_ptr) 
+{
+}
+
+void GBA_EMUALTOR_ARM7TDMI::MOV_llr(INSTRUCTION_FORMAT *instruction_ptr) 
+{
+}
+
+void GBA_EMUALTOR_ARM7TDMI::MOV_lri(INSTRUCTION_FORMAT *instruction_ptr) 
+{
+}
+
+void GBA_EMUALTOR_ARM7TDMI::MOV_lrr(INSTRUCTION_FORMAT *instruction_ptr) 
+{
+}
+
+void GBA_EMUALTOR_ARM7TDMI::MOV_ari(INSTRUCTION_FORMAT *instruction_ptr) 
+{
+}
+
+void GBA_EMUALTOR_ARM7TDMI::MOV_arr(INSTRUCTION_FORMAT *instruction_ptr) 
+{
+}
+
+void GBA_EMUALTOR_ARM7TDMI::MOV_rri(INSTRUCTION_FORMAT *instruction_ptr) 
+{
+}
+
+void GBA_EMUALTOR_ARM7TDMI::MOV_rrr(INSTRUCTION_FORMAT *instruction_ptr) 
+{
+}
+
+
+void GBA_EMUALTOR_ARM7TDMI::MOVS_lli(INSTRUCTION_FORMAT *instruction_ptr) 
+{
+}
+
+void GBA_EMUALTOR_ARM7TDMI::MOVS_llr(INSTRUCTION_FORMAT *instruction_ptr) 
+{
+}
+
+void GBA_EMUALTOR_ARM7TDMI::MOVS_lri(INSTRUCTION_FORMAT *instruction_ptr) 
+{
+}
+
+void GBA_EMUALTOR_ARM7TDMI::MOVS_lrr(INSTRUCTION_FORMAT *instruction_ptr) 
+{
+}
+
+void GBA_EMUALTOR_ARM7TDMI::MOVS_ari(INSTRUCTION_FORMAT *instruction_ptr) 
+{
+}
+
+void GBA_EMUALTOR_ARM7TDMI::MOVS_arr(INSTRUCTION_FORMAT *instruction_ptr) 
+{
+}
+
+void GBA_EMUALTOR_ARM7TDMI::MOVS_rri(INSTRUCTION_FORMAT *instruction_ptr) 
+{
+}
+
+void GBA_EMUALTOR_ARM7TDMI::MOVS_rrr(INSTRUCTION_FORMAT *instruction_ptr) 
+{
+}
+
+
+void GBA_EMUALTOR_ARM7TDMI::BIC_lli(INSTRUCTION_FORMAT *instruction_ptr) 
+{
+}
+
+void GBA_EMUALTOR_ARM7TDMI::BIC_llr(INSTRUCTION_FORMAT *instruction_ptr) 
+{
+}
+
+void GBA_EMUALTOR_ARM7TDMI::BIC_lri(INSTRUCTION_FORMAT *instruction_ptr) 
+{
+}
+
+void GBA_EMUALTOR_ARM7TDMI::BIC_lrr(INSTRUCTION_FORMAT *instruction_ptr) 
+{
+}
+
+void GBA_EMUALTOR_ARM7TDMI::BIC_ari(INSTRUCTION_FORMAT *instruction_ptr) 
+{
+}
+
+void GBA_EMUALTOR_ARM7TDMI::BIC_arr(INSTRUCTION_FORMAT *instruction_ptr) 
+{
+}
+
+void GBA_EMUALTOR_ARM7TDMI::BIC_rri(INSTRUCTION_FORMAT *instruction_ptr) 
+{
+}
+
+void GBA_EMUALTOR_ARM7TDMI::BIC_rrr(INSTRUCTION_FORMAT *instruction_ptr) 
+{
+}
+
+
+void GBA_EMUALTOR_ARM7TDMI::BICS_lli(INSTRUCTION_FORMAT *instruction_ptr) 
+{
+}
+
+void GBA_EMUALTOR_ARM7TDMI::BICS_llr(INSTRUCTION_FORMAT *instruction_ptr) 
+{
+}
+
+void GBA_EMUALTOR_ARM7TDMI::BICS_lri(INSTRUCTION_FORMAT *instruction_ptr) 
+{
+}
+
+void GBA_EMUALTOR_ARM7TDMI::BICS_lrr(INSTRUCTION_FORMAT *instruction_ptr) 
+{
+}
+
+void GBA_EMUALTOR_ARM7TDMI::BICS_ari(INSTRUCTION_FORMAT *instruction_ptr) 
+{
+}
+
+void GBA_EMUALTOR_ARM7TDMI::BICS_arr(INSTRUCTION_FORMAT *instruction_ptr) 
+{
+}
+
+void GBA_EMUALTOR_ARM7TDMI::BICS_rri(INSTRUCTION_FORMAT *instruction_ptr) 
+{
+}
+
+void GBA_EMUALTOR_ARM7TDMI::BICS_rrr(INSTRUCTION_FORMAT *instruction_ptr) 
+{
+}
+
+
+void GBA_EMUALTOR_ARM7TDMI::MVM_lli(INSTRUCTION_FORMAT *instruction_ptr) 
+{
+}
+
+void GBA_EMUALTOR_ARM7TDMI::MVM_llr(INSTRUCTION_FORMAT *instruction_ptr) 
+{
+}
+
+void GBA_EMUALTOR_ARM7TDMI::MVM_lri(INSTRUCTION_FORMAT *instruction_ptr) 
+{
+}
+
+void GBA_EMUALTOR_ARM7TDMI::MVM_lrr(INSTRUCTION_FORMAT *instruction_ptr) 
+{
+}
+
+void GBA_EMUALTOR_ARM7TDMI::MVM_ari(INSTRUCTION_FORMAT *instruction_ptr) 
+{
+}
+
+void GBA_EMUALTOR_ARM7TDMI::MVM_arr(INSTRUCTION_FORMAT *instruction_ptr) 
+{
+}
+
+void GBA_EMUALTOR_ARM7TDMI::MVM_rri(INSTRUCTION_FORMAT *instruction_ptr) 
+{
+}
+
+void GBA_EMUALTOR_ARM7TDMI::MVM_rrr(INSTRUCTION_FORMAT *instruction_ptr) 
+{
+}
+
+
+void GBA_EMUALTOR_ARM7TDMI::MVMS_lli(INSTRUCTION_FORMAT *instruction_ptr) 
+{
+}
+
+void GBA_EMUALTOR_ARM7TDMI::MVMS_llr(INSTRUCTION_FORMAT *instruction_ptr) 
+{
+}
+
+void GBA_EMUALTOR_ARM7TDMI::MVMS_lri(INSTRUCTION_FORMAT *instruction_ptr) 
+{
+}
+
+void GBA_EMUALTOR_ARM7TDMI::MVMS_lrr(INSTRUCTION_FORMAT *instruction_ptr) 
+{
+}
+
+void GBA_EMUALTOR_ARM7TDMI::MVMS_ari(INSTRUCTION_FORMAT *instruction_ptr) 
+{
+}
+
+void GBA_EMUALTOR_ARM7TDMI::MVMS_arr(INSTRUCTION_FORMAT *instruction_ptr) 
+{
+}
+
+void GBA_EMUALTOR_ARM7TDMI::MVMS_rri(INSTRUCTION_FORMAT *instruction_ptr) 
+{
+}
+
+void GBA_EMUALTOR_ARM7TDMI::MVMS_rrr(INSTRUCTION_FORMAT *instruction_ptr) 
+{
+}
+
 
 void GBA_EMUALTOR_ARM7TDMI::ANDS_imm(INSTRUCTION_FORMAT *instruction_ptr) 
 {
 }
    
-void GBA_EMUALTOR_ARM7TDMI::EOR_imm(INSTRUCTION_FORMAT *instruction_ptr 
+void GBA_EMUALTOR_ARM7TDMI::EOR_imm(INSTRUCTION_FORMAT *instruction_ptr)
 {
 }
 
-void GBA_EMUALTOR_ARM7TDMI::EORS_imm(INSTRUCTION_FORMAT *instruction_ptr 
+void GBA_EMUALTOR_ARM7TDMI::EORS_imm(INSTRUCTION_FORMAT *instruction_ptr)
 {
 }
 
-void GBA_EMUALTOR_ARM7TDMI::SUB_imm(INSTRUCTION_FORMAT *instruction_ptr 
+void GBA_EMUALTOR_ARM7TDMI::SUB_imm(INSTRUCTION_FORMAT *instruction_ptr)
 {
 }
 
-void GBA_EMUALTOR_ARM7TDMI::SUBS_imm(INSTRUCTION_FORMAT *instruction_ptr 
+void GBA_EMUALTOR_ARM7TDMI::SUBS_imm(INSTRUCTION_FORMAT *instruction_ptr)
 {
 }
 
-void GBA_EMUALTOR_ARM7TDMI::RSB_imm(INSTRUCTION_FORMAT *instruction_ptr 
+void GBA_EMUALTOR_ARM7TDMI::RSB_imm(INSTRUCTION_FORMAT *instruction_ptr)
 {
 }
 
-void GBA_EMUALTOR_ARM7TDMI::RSBS_imm(INSTRUCTION_FORMAT *instruction_ptr 
+void GBA_EMUALTOR_ARM7TDMI::RSBS_imm(INSTRUCTION_FORMAT *instruction_ptr)
 {
 }
 
-void GBA_EMUALTOR_ARM7TDMI::ADD_imm(INSTRUCTION_FORMAT *instruction_ptr 
+void GBA_EMUALTOR_ARM7TDMI::ADD_imm(INSTRUCTION_FORMAT *instruction_ptr)
 {
 }
 
-void GBA_EMUALTOR_ARM7TDMI::ADDS_imm(INSTRUCTION_FORMAT *instruction_ptr 
+void GBA_EMUALTOR_ARM7TDMI::ADDS_imm(INSTRUCTION_FORMAT *instruction_ptr)
 {
 }
 
-void GBA_EMUALTOR_ARM7TDMI::ADC_imm(INSTRUCTION_FORMAT *instruction_ptr 
+void GBA_EMUALTOR_ARM7TDMI::ADC_imm(INSTRUCTION_FORMAT *instruction_ptr)
 {
 }
 
-void GBA_EMUALTOR_ARM7TDMI::ADCS_imm(INSTRUCTION_FORMAT *instruction_ptr 
+void GBA_EMUALTOR_ARM7TDMI::ADCS_imm(INSTRUCTION_FORMAT *instruction_ptr)
 {
 }
 
-void GBA_EMUALTOR_ARM7TDMI::SBC_imm(INSTRUCTION_FORMAT *instruction_ptr 
+void GBA_EMUALTOR_ARM7TDMI::SBC_imm(INSTRUCTION_FORMAT *instruction_ptr)
 {
 }
 
-void GBA_EMUALTOR_ARM7TDMI::SBCS_imm(INSTRUCTION_FORMAT *instruction_ptr 
+void GBA_EMUALTOR_ARM7TDMI::SBCS_imm(INSTRUCTION_FORMAT *instruction_ptr)
 {
 }
 
-void GBA_EMUALTOR_ARM7TDMI::RSC_imm(INSTRUCTION_FORMAT *instruction_ptr 
+void GBA_EMUALTOR_ARM7TDMI::RSC_imm(INSTRUCTION_FORMAT *instruction_ptr)
 {
 }
 
-void GBA_EMUALTOR_ARM7TDMI::RSCS_imm(INSTRUCTION_FORMAT *instruction_ptr 
+void GBA_EMUALTOR_ARM7TDMI::RSCS_imm(INSTRUCTION_FORMAT *instruction_ptr)
 {
 }
 
-void GBA_EMUALTOR_ARM7TDMI::TSTS_imm(INSTRUCTION_FORMAT *instruction_ptr 
+void GBA_EMUALTOR_ARM7TDMI::TSTS_imm(INSTRUCTION_FORMAT *instruction_ptr)
 {
 }
 
-void GBA_EMUALTOR_ARM7TDMI::MSR_ic(INSTRUCTION_FORMAT *instruction_ptr 
+void GBA_EMUALTOR_ARM7TDMI::MSR_ic(INSTRUCTION_FORMAT *instruction_ptr)
 {
 }
 
-void GBA_EMUALTOR_ARM7TDMI::TEQS_imm(INSTRUCTION_FORMAT *instruction_ptr 
+void GBA_EMUALTOR_ARM7TDMI::TEQS_imm(INSTRUCTION_FORMAT *instruction_ptr)
 {
 }
 
-void GBA_EMUALTOR_ARM7TDMI::CMPS_imm(INSTRUCTION_FORMAT *instruction_ptr 
+void GBA_EMUALTOR_ARM7TDMI::CMPS_imm(INSTRUCTION_FORMAT *instruction_ptr)
 {
 }
 
-void GBA_EMUALTOR_ARM7TDMI::MSR_is(INSTRUCTION_FORMAT *instruction_ptr 
+void GBA_EMUALTOR_ARM7TDMI::MSR_is(INSTRUCTION_FORMAT *instruction_ptr)
 {
 }
 
-void GBA_EMUALTOR_ARM7TDMI::CMNS_imm(INSTRUCTION_FORMAT *instruction_ptr 
+void GBA_EMUALTOR_ARM7TDMI::CMNS_imm(INSTRUCTION_FORMAT *instruction_ptr)
 {
 }
 
-void GBA_EMUALTOR_ARM7TDMI::ORR_imm(INSTRUCTION_FORMAT *instruction_ptr 
+void GBA_EMUALTOR_ARM7TDMI::ORR_imm(INSTRUCTION_FORMAT *instruction_ptr)
 {
 }
 
-void GBA_EMUALTOR_ARM7TDMI::ORRS_imm(INSTRUCTION_FORMAT *instruction_ptr 
+void GBA_EMUALTOR_ARM7TDMI::ORRS_imm(INSTRUCTION_FORMAT *instruction_ptr)
 {
 }
 
-void GBA_EMUALTOR_ARM7TDMI::MOV_imm(INSTRUCTION_FORMAT *instruction_ptr 
+void GBA_EMUALTOR_ARM7TDMI::MOV_imm(INSTRUCTION_FORMAT *instruction_ptr)
 {
 }
 
-void GBA_EMUALTOR_ARM7TDMI::MOVS_imm(INSTRUCTION_FORMAT *instruction_ptr 
+void GBA_EMUALTOR_ARM7TDMI::MOVS_imm(INSTRUCTION_FORMAT *instruction_ptr)
 {
 }
 
-void GBA_EMUALTOR_ARM7TDMI::BIC_imm(INSTRUCTION_FORMAT *instruction_ptr 
+void GBA_EMUALTOR_ARM7TDMI::BIC_imm(INSTRUCTION_FORMAT *instruction_ptr)
 {
 }
 
-void GBA_EMUALTOR_ARM7TDMI::BICS_imm(INSTRUCTION_FORMAT *instruction_ptr 
+void GBA_EMUALTOR_ARM7TDMI::BICS_imm(INSTRUCTION_FORMAT *instruction_ptr)
 {
 }
 
-void GBA_EMUALTOR_ARM7TDMI::MVN_imm(INSTRUCTION_FORMAT *instruction_ptr 
+void GBA_EMUALTOR_ARM7TDMI::MVN_imm(INSTRUCTION_FORMAT *instruction_ptr)
 {
 }
 
-void GBA_EMUALTOR_ARM7TDMI::MVNS_imm(INSTRUCTION_FORMAT *instruction_ptr 
+void GBA_EMUALTOR_ARM7TDMI::MVNS_imm(INSTRUCTION_FORMAT *instruction_ptr)
 {
 }
 
-void GBA_EMUALTOR_ARM7TDMI::STR_ptim(INSTRUCTION_FORMAT *instruction_ptr 
+void GBA_EMUALTOR_ARM7TDMI::STR_ptim(INSTRUCTION_FORMAT *instruction_ptr)
 {
 }
 
-void GBA_EMUALTOR_ARM7TDMI::LDR_ptim(INSTRUCTION_FORMAT *instruction_ptr 
+void GBA_EMUALTOR_ARM7TDMI::LDR_ptim(INSTRUCTION_FORMAT *instruction_ptr)
 {
 }
 
-void GBA_EMUALTOR_ARM7TDMI::STRT_ptim(INSTRUCTION_FORMAT *instruction_ptr 
+void GBA_EMUALTOR_ARM7TDMI::STRT_ptim(INSTRUCTION_FORMAT *instruction_ptr)
 {
 }
 
-void GBA_EMUALTOR_ARM7TDMI::LDRT_ptim(INSTRUCTION_FORMAT *instruction_ptr 
+void GBA_EMUALTOR_ARM7TDMI::LDRT_ptim(INSTRUCTION_FORMAT *instruction_ptr)
 {
 }
 
-void GBA_EMUALTOR_ARM7TDMI::STRB_ptim(INSTRUCTION_FORMAT *instruction_ptr 
+void GBA_EMUALTOR_ARM7TDMI::STRB_ptim(INSTRUCTION_FORMAT *instruction_ptr)
 {
 }
 
-void GBA_EMUALTOR_ARM7TDMI::LDRB_ptim(INSTRUCTION_FORMAT *instruction_ptr 
+void GBA_EMUALTOR_ARM7TDMI::LDRB_ptim(INSTRUCTION_FORMAT *instruction_ptr)
 {
 }
 
-void GBA_EMUALTOR_ARM7TDMI::STRBT_ptim(INSTRUCTION_FORMAT *instruction_ptr 
+void GBA_EMUALTOR_ARM7TDMI::STRBT_ptim(INSTRUCTION_FORMAT *instruction_ptr)
 {
 }
 
-void GBA_EMUALTOR_ARM7TDMI::LDRBT_ptim(INSTRUCTION_FORMAT *instruction_ptr 
+void GBA_EMUALTOR_ARM7TDMI::LDRBT_ptim(INSTRUCTION_FORMAT *instruction_ptr)
 {
 }
 
-void GBA_EMUALTOR_ARM7TDMI::STR_ptip(INSTRUCTION_FORMAT *instruction_ptr 
+void GBA_EMUALTOR_ARM7TDMI::STR_ptip(INSTRUCTION_FORMAT *instruction_ptr)
 {
 }
 
-void GBA_EMUALTOR_ARM7TDMI::LDR_ptip(INSTRUCTION_FORMAT *instruction_ptr 
+void GBA_EMUALTOR_ARM7TDMI::LDR_ptip(INSTRUCTION_FORMAT *instruction_ptr)
 {
 }
 
-void GBA_EMUALTOR_ARM7TDMI::STRT_ptip(INSTRUCTION_FORMAT *instruction_ptr 
+void GBA_EMUALTOR_ARM7TDMI::STRT_ptip(INSTRUCTION_FORMAT *instruction_ptr)
 {
 }
 
-void GBA_EMUALTOR_ARM7TDMI::LDRT_ptip(INSTRUCTION_FORMAT *instruction_ptr 
+void GBA_EMUALTOR_ARM7TDMI::LDRT_ptip(INSTRUCTION_FORMAT *instruction_ptr)
 {
 }
 
-void GBA_EMUALTOR_ARM7TDMI::STRB_ptip(INSTRUCTION_FORMAT *instruction_ptr 
+void GBA_EMUALTOR_ARM7TDMI::STRB_ptip(INSTRUCTION_FORMAT *instruction_ptr)
 {
 }
 
-void GBA_EMUALTOR_ARM7TDMI::LDRB_ptip(INSTRUCTION_FORMAT *instruction_ptr 
+void GBA_EMUALTOR_ARM7TDMI::LDRB_ptip(INSTRUCTION_FORMAT *instruction_ptr)
 {
 }
 
-void GBA_EMUALTOR_ARM7TDMI::STRBT_ptip(INSTRUCTION_FORMAT *instruction_ptr 
+void GBA_EMUALTOR_ARM7TDMI::STRBT_ptip(INSTRUCTION_FORMAT *instruction_ptr)
 {
 }
 
-void GBA_EMUALTOR_ARM7TDMI::LDRBT_ptip(INSTRUCTION_FORMAT *instruction_ptr 
+void GBA_EMUALTOR_ARM7TDMI::LDRBT_ptip(INSTRUCTION_FORMAT *instruction_ptr)
 {
 }
 
-void GBA_EMUALTOR_ARM7TDMI::STR_ofim(INSTRUCTION_FORMAT *instruction_ptr 
+void GBA_EMUALTOR_ARM7TDMI::STR_ofim(INSTRUCTION_FORMAT *instruction_ptr)
 {
 }
 
-void GBA_EMUALTOR_ARM7TDMI::LDR_ofim(INSTRUCTION_FORMAT *instruction_ptr 
+void GBA_EMUALTOR_ARM7TDMI::LDR_ofim(INSTRUCTION_FORMAT *instruction_ptr)
 {
 }
 
-void GBA_EMUALTOR_ARM7TDMI::STR_prim(INSTRUCTION_FORMAT *instruction_ptr 
+void GBA_EMUALTOR_ARM7TDMI::STR_prim(INSTRUCTION_FORMAT *instruction_ptr)
 {
 }
 
-void GBA_EMUALTOR_ARM7TDMI::LDR_prim(INSTRUCTION_FORMAT *instruction_ptr 
+void GBA_EMUALTOR_ARM7TDMI::LDR_prim(INSTRUCTION_FORMAT *instruction_ptr)
 {
 }
 
-void GBA_EMUALTOR_ARM7TDMI::STRB_ofim(INSTRUCTION_FORMAT *instruction_ptr 
+void GBA_EMUALTOR_ARM7TDMI::STRB_ofim(INSTRUCTION_FORMAT *instruction_ptr)
 {
 }
 
-void GBA_EMUALTOR_ARM7TDMI::LDRB_ofim(INSTRUCTION_FORMAT *instruction_ptr 
+void GBA_EMUALTOR_ARM7TDMI::LDRB_ofim(INSTRUCTION_FORMAT *instruction_ptr)
 {
 }
 
-void GBA_EMUALTOR_ARM7TDMI::STRB_prim(INSTRUCTION_FORMAT *instruction_ptr 
+void GBA_EMUALTOR_ARM7TDMI::STRB_prim(INSTRUCTION_FORMAT *instruction_ptr)
 {
 }
 
-void GBA_EMUALTOR_ARM7TDMI::LDRB_prim(INSTRUCTION_FORMAT *instruction_ptr 
+void GBA_EMUALTOR_ARM7TDMI::LDRB_prim(INSTRUCTION_FORMAT *instruction_ptr)
 {
 }
 
-void GBA_EMUALTOR_ARM7TDMI::STR_ofip(INSTRUCTION_FORMAT *instruction_ptr 
+void GBA_EMUALTOR_ARM7TDMI::STR_ofip(INSTRUCTION_FORMAT *instruction_ptr)
 {
 }
 
-void GBA_EMUALTOR_ARM7TDMI::LDR_ofip(INSTRUCTION_FORMAT *instruction_ptr 
+void GBA_EMUALTOR_ARM7TDMI::LDR_ofip(INSTRUCTION_FORMAT *instruction_ptr)
 {
 }
 
-void GBA_EMUALTOR_ARM7TDMI::STR_prip(INSTRUCTION_FORMAT *instruction_ptr 
+void GBA_EMUALTOR_ARM7TDMI::STR_prip(INSTRUCTION_FORMAT *instruction_ptr)
 {
 }
 
-void GBA_EMUALTOR_ARM7TDMI::LDR_prip(INSTRUCTION_FORMAT *instruction_ptr 
+void GBA_EMUALTOR_ARM7TDMI::LDR_prip(INSTRUCTION_FORMAT *instruction_ptr)
 {
 }
 
-void GBA_EMUALTOR_ARM7TDMI::STRB_ofip(INSTRUCTION_FORMAT *instruction_ptr 
+void GBA_EMUALTOR_ARM7TDMI::STRB_ofip(INSTRUCTION_FORMAT *instruction_ptr)
 {
 }
 
-void GBA_EMUALTOR_ARM7TDMI::LDRB_ofip(INSTRUCTION_FORMAT *instruction_ptr 
+void GBA_EMUALTOR_ARM7TDMI::LDRB_ofip(INSTRUCTION_FORMAT *instruction_ptr)
 {
 }
 
-void GBA_EMUALTOR_ARM7TDMI::STRB_prip(INSTRUCTION_FORMAT *instruction_ptr 
+void GBA_EMUALTOR_ARM7TDMI::STRB_prip(INSTRUCTION_FORMAT *instruction_ptr)
 {
 }
 
-void GBA_EMUALTOR_ARM7TDMI::LDRB_prip(INSTRUCTION_FORMAT *instruction_ptr 
+void GBA_EMUALTOR_ARM7TDMI::LDRB_prip(INSTRUCTION_FORMAT *instruction_ptr)
 {
 }
 
@@ -2705,208 +3137,208 @@ void GBA_EMUALTOR_ARM7TDMI::LDRB_prrprr(INSTRUCTION_FORMAT *instruction_ptr)
 
 
 
-void GBA_EMUALTOR_ARM7TDMI::STMDA(INSTRUCTION_FORMAT *instruction_ptr 
+void GBA_EMUALTOR_ARM7TDMI::STMDA(INSTRUCTION_FORMAT *instruction_ptr)
 {
 }
 
-void GBA_EMUALTOR_ARM7TDMI::LDMDA(INSTRUCTION_FORMAT *instruction_ptr 
+void GBA_EMUALTOR_ARM7TDMI::LDMDA(INSTRUCTION_FORMAT *instruction_ptr)
 {
 }
 
-void GBA_EMUALTOR_ARM7TDMI::STMDA_w(INSTRUCTION_FORMAT *instruction_ptr 
+void GBA_EMUALTOR_ARM7TDMI::STMDA_w(INSTRUCTION_FORMAT *instruction_ptr)
 {
 }
 
-void GBA_EMUALTOR_ARM7TDMI::LDMDA_w(INSTRUCTION_FORMAT *instruction_ptr 
+void GBA_EMUALTOR_ARM7TDMI::LDMDA_w(INSTRUCTION_FORMAT *instruction_ptr)
 {
 }
 
-void GBA_EMUALTOR_ARM7TDMI::STMDA_u(INSTRUCTION_FORMAT *instruction_ptr 
+void GBA_EMUALTOR_ARM7TDMI::STMDA_u(INSTRUCTION_FORMAT *instruction_ptr)
 {
 }
 
-void GBA_EMUALTOR_ARM7TDMI::LDMDA_u(INSTRUCTION_FORMAT *instruction_ptr 
+void GBA_EMUALTOR_ARM7TDMI::LDMDA_u(INSTRUCTION_FORMAT *instruction_ptr)
 {
 }
 
-void GBA_EMUALTOR_ARM7TDMI::STMDA_uw(INSTRUCTION_FORMAT *instruction_ptr 
+void GBA_EMUALTOR_ARM7TDMI::STMDA_uw(INSTRUCTION_FORMAT *instruction_ptr)
 {
 }
 
-void GBA_EMUALTOR_ARM7TDMI::LDMDA_uw(INSTRUCTION_FORMAT *instruction_ptr 
+void GBA_EMUALTOR_ARM7TDMI::LDMDA_uw(INSTRUCTION_FORMAT *instruction_ptr)
 {
 }
 
-void GBA_EMUALTOR_ARM7TDMI::STMIA(INSTRUCTION_FORMAT *instruction_ptr 
+void GBA_EMUALTOR_ARM7TDMI::STMIA(INSTRUCTION_FORMAT *instruction_ptr)
 {
 }
 
-void GBA_EMUALTOR_ARM7TDMI::LDMIA(INSTRUCTION_FORMAT *instruction_ptr 
+void GBA_EMUALTOR_ARM7TDMI::LDMIA(INSTRUCTION_FORMAT *instruction_ptr)
 {
 }
 
-void GBA_EMUALTOR_ARM7TDMI::STMIA_w(INSTRUCTION_FORMAT *instruction_ptr 
+void GBA_EMUALTOR_ARM7TDMI::STMIA_w(INSTRUCTION_FORMAT *instruction_ptr)
 {
 }
 
-void GBA_EMUALTOR_ARM7TDMI::LDMIA_w(INSTRUCTION_FORMAT *instruction_ptr 
+void GBA_EMUALTOR_ARM7TDMI::LDMIA_w(INSTRUCTION_FORMAT *instruction_ptr)
 {
 }
 
-void GBA_EMUALTOR_ARM7TDMI::STMIA_u(INSTRUCTION_FORMAT *instruction_ptr 
+void GBA_EMUALTOR_ARM7TDMI::STMIA_u(INSTRUCTION_FORMAT *instruction_ptr)
 {
 }
 
-void GBA_EMUALTOR_ARM7TDMI::LDMIA_u(INSTRUCTION_FORMAT *instruction_ptr 
+void GBA_EMUALTOR_ARM7TDMI::LDMIA_u(INSTRUCTION_FORMAT *instruction_ptr)
 {
 }
 
-void GBA_EMUALTOR_ARM7TDMI::STMIA_uw(INSTRUCTION_FORMAT *instruction_ptr 
+void GBA_EMUALTOR_ARM7TDMI::STMIA_uw(INSTRUCTION_FORMAT *instruction_ptr)
 {
 }
 
-void GBA_EMUALTOR_ARM7TDMI::LDMIA_uw(INSTRUCTION_FORMAT *instruction_ptr 
+void GBA_EMUALTOR_ARM7TDMI::LDMIA_uw(INSTRUCTION_FORMAT *instruction_ptr)
 {
 }
 
-void GBA_EMUALTOR_ARM7TDMI::STMDB(INSTRUCTION_FORMAT *instruction_ptr 
+void GBA_EMUALTOR_ARM7TDMI::STMDB(INSTRUCTION_FORMAT *instruction_ptr)
 {
 }
 
-void GBA_EMUALTOR_ARM7TDMI::LDMDB(INSTRUCTION_FORMAT *instruction_ptr 
+void GBA_EMUALTOR_ARM7TDMI::LDMDB(INSTRUCTION_FORMAT *instruction_ptr)
 {
 }
 
-void GBA_EMUALTOR_ARM7TDMI::STMDB_w(INSTRUCTION_FORMAT *instruction_ptr 
+void GBA_EMUALTOR_ARM7TDMI::STMDB_w(INSTRUCTION_FORMAT *instruction_ptr)
 {
 }
 
-void GBA_EMUALTOR_ARM7TDMI::LDMDB_w(INSTRUCTION_FORMAT *instruction_ptr 
+void GBA_EMUALTOR_ARM7TDMI::LDMDB_w(INSTRUCTION_FORMAT *instruction_ptr)
 {
 }
 
-void GBA_EMUALTOR_ARM7TDMI::STMDB_u(INSTRUCTION_FORMAT *instruction_ptr 
+void GBA_EMUALTOR_ARM7TDMI::STMDB_u(INSTRUCTION_FORMAT *instruction_ptr)
 {
 }
 
-void GBA_EMUALTOR_ARM7TDMI::LDMDB_u(INSTRUCTION_FORMAT *instruction_ptr 
+void GBA_EMUALTOR_ARM7TDMI::LDMDB_u(INSTRUCTION_FORMAT *instruction_ptr)
 {
 }
 
-void GBA_EMUALTOR_ARM7TDMI::STMDB_uw(INSTRUCTION_FORMAT *instruction_ptr 
+void GBA_EMUALTOR_ARM7TDMI::STMDB_uw(INSTRUCTION_FORMAT *instruction_ptr)
 {
 }
 
-void GBA_EMUALTOR_ARM7TDMI::LDMDB_uw(INSTRUCTION_FORMAT *instruction_ptr 
+void GBA_EMUALTOR_ARM7TDMI::LDMDB_uw(INSTRUCTION_FORMAT *instruction_ptr)
 {
 }
 
-void GBA_EMUALTOR_ARM7TDMI::STMIB(INSTRUCTION_FORMAT *instruction_ptr 
+void GBA_EMUALTOR_ARM7TDMI::STMIB(INSTRUCTION_FORMAT *instruction_ptr)
 {
 }
 
-void GBA_EMUALTOR_ARM7TDMI::LDMIB(INSTRUCTION_FORMAT *instruction_ptr 
+void GBA_EMUALTOR_ARM7TDMI::LDMIB(INSTRUCTION_FORMAT *instruction_ptr)
 {
 }
 
-void GBA_EMUALTOR_ARM7TDMI::STMIB_w(INSTRUCTION_FORMAT *instruction_ptr 
+void GBA_EMUALTOR_ARM7TDMI::STMIB_w(INSTRUCTION_FORMAT *instruction_ptr)
 {
 }
 
-void GBA_EMUALTOR_ARM7TDMI::LDMIB_w(INSTRUCTION_FORMAT *instruction_ptr 
+void GBA_EMUALTOR_ARM7TDMI::LDMIB_w(INSTRUCTION_FORMAT *instruction_ptr)
 {
 }
 
-void GBA_EMUALTOR_ARM7TDMI::STMIB_u(INSTRUCTION_FORMAT *instruction_ptr 
+void GBA_EMUALTOR_ARM7TDMI::STMIB_u(INSTRUCTION_FORMAT *instruction_ptr)
 {
 }
 
-void GBA_EMUALTOR_ARM7TDMI::LDMIB_u(INSTRUCTION_FORMAT *instruction_ptr 
+void GBA_EMUALTOR_ARM7TDMI::LDMIB_u(INSTRUCTION_FORMAT *instruction_ptr)
 {
 }
 
-void GBA_EMUALTOR_ARM7TDMI::STMIB_uw(INSTRUCTION_FORMAT *instruction_ptr 
+void GBA_EMUALTOR_ARM7TDMI::STMIB_uw(INSTRUCTION_FORMAT *instruction_ptr)
 {
 }
 
-void GBA_EMUALTOR_ARM7TDMI::LDMIB_uw(INSTRUCTION_FORMAT *instruction_ptr 
-{
-}
-
-
-void GBA_EMUALTOR_ARM7TDMI::B(INSTRUCTION_FORMAT *instruction_ptr 
-{
-}
-
-void GBA_EMUALTOR_ARM7TDMI::BL(INSTRUCTION_FORMAT *instruction_ptr 
+void GBA_EMUALTOR_ARM7TDMI::LDMIB_uw(INSTRUCTION_FORMAT *instruction_ptr)
 {
 }
 
 
-void GBA_EMUALTOR_ARM7TDMI::STC_ofm(INSTRUCTION_FORMAT *instruction_ptr 
+void GBA_EMUALTOR_ARM7TDMI::B(INSTRUCTION_FORMAT *instruction_ptr)
 {
 }
 
-void GBA_EMUALTOR_ARM7TDMI::LDC_ofm(INSTRUCTION_FORMAT *instruction_ptr 
-{
-}
-
-void GBA_EMUALTOR_ARM7TDMI::STC_prm(INSTRUCTION_FORMAT *instruction_ptr 
-{
-}
-
-void GBA_EMUALTOR_ARM7TDMI::LDC_prm(INSTRUCTION_FORMAT *instruction_ptr 
+void GBA_EMUALTOR_ARM7TDMI::BL(INSTRUCTION_FORMAT *instruction_ptr)
 {
 }
 
 
-void GBA_EMUALTOR_ARM7TDMI::STC_ofp(INSTRUCTION_FORMAT *instruction_ptr 
+void GBA_EMUALTOR_ARM7TDMI::STC_ofm(INSTRUCTION_FORMAT *instruction_ptr)
 {
 }
 
-void GBA_EMUALTOR_ARM7TDMI::LDC_ofp(INSTRUCTION_FORMAT *instruction_ptr 
+void GBA_EMUALTOR_ARM7TDMI::LDC_ofm(INSTRUCTION_FORMAT *instruction_ptr)
 {
 }
 
-void GBA_EMUALTOR_ARM7TDMI::STC_prp(INSTRUCTION_FORMAT *instruction_ptr 
+void GBA_EMUALTOR_ARM7TDMI::STC_prm(INSTRUCTION_FORMAT *instruction_ptr)
 {
 }
 
-void GBA_EMUALTOR_ARM7TDMI::LDC_prp(INSTRUCTION_FORMAT *instruction_ptr 
-{
-}
-
-
-void GBA_EMUALTOR_ARM7TDMI::STC_unm(INSTRUCTION_FORMAT *instruction_ptr 
-{
-}
-
-void GBA_EMUALTOR_ARM7TDMI::LDC_unm(INSTRUCTION_FORMAT *instruction_ptr 
-{
-}
-
-void GBA_EMUALTOR_ARM7TDMI::STC_ptm(INSTRUCTION_FORMAT *instruction_ptr 
-{
-}
-
-void GBA_EMUALTOR_ARM7TDMI::LDC_ptm(INSTRUCTION_FORMAT *instruction_ptr 
+void GBA_EMUALTOR_ARM7TDMI::LDC_prm(INSTRUCTION_FORMAT *instruction_ptr)
 {
 }
 
 
-void GBA_EMUALTOR_ARM7TDMI::STC_unp(INSTRUCTION_FORMAT *instruction_ptr 
+void GBA_EMUALTOR_ARM7TDMI::STC_ofp(INSTRUCTION_FORMAT *instruction_ptr)
 {
 }
 
-void GBA_EMUALTOR_ARM7TDMI::LDC_unp(INSTRUCTION_FORMAT *instruction_ptr 
+void GBA_EMUALTOR_ARM7TDMI::LDC_ofp(INSTRUCTION_FORMAT *instruction_ptr)
 {
 }
 
-void GBA_EMUALTOR_ARM7TDMI::STC_ptp(INSTRUCTION_FORMAT *instruction_ptr 
+void GBA_EMUALTOR_ARM7TDMI::STC_prp(INSTRUCTION_FORMAT *instruction_ptr)
 {
 }
 
-void GBA_EMUALTOR_ARM7TDMI::LDC_ptp(INSTRUCTION_FORMAT *instruction_ptr 
+void GBA_EMUALTOR_ARM7TDMI::LDC_prp(INSTRUCTION_FORMAT *instruction_ptr)
+{
+}
+
+
+void GBA_EMUALTOR_ARM7TDMI::STC_unm(INSTRUCTION_FORMAT *instruction_ptr)
+{
+}
+
+void GBA_EMUALTOR_ARM7TDMI::LDC_unm(INSTRUCTION_FORMAT *instruction_ptr)
+{
+}
+
+void GBA_EMUALTOR_ARM7TDMI::STC_ptm(INSTRUCTION_FORMAT *instruction_ptr)
+{
+}
+
+void GBA_EMUALTOR_ARM7TDMI::LDC_ptm(INSTRUCTION_FORMAT *instruction_ptr)
+{
+}
+
+
+void GBA_EMUALTOR_ARM7TDMI::STC_unp(INSTRUCTION_FORMAT *instruction_ptr)
+{
+}
+
+void GBA_EMUALTOR_ARM7TDMI::LDC_unp(INSTRUCTION_FORMAT *instruction_ptr)
+{
+}
+
+void GBA_EMUALTOR_ARM7TDMI::STC_ptp(INSTRUCTION_FORMAT *instruction_ptr)
+{
+}
+
+void GBA_EMUALTOR_ARM7TDMI::LDC_ptp(INSTRUCTION_FORMAT *instruction_ptr)
 {
 }
 
