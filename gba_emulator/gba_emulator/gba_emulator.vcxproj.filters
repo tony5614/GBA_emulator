@@ -18,18 +18,15 @@
     <ClInclude Include="targetver.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="gba_emulator.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="arm7tdmi.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="gba_emulator.cpp">
+    <ClCompile Include="arm7tdmi.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="arm7tdmi.cpp">
+    <ClCompile Include="main.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

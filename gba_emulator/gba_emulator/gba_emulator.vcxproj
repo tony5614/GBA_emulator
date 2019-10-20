@@ -148,12 +148,11 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="arm7tdmi.hpp" />
-    <ClInclude Include="gba_emulator.hpp" />
     <ClInclude Include="targetver.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="arm7tdmi.cpp" />
-    <ClCompile Include="gba_emulator.cpp" />
+    <ClCompile Include="main.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
