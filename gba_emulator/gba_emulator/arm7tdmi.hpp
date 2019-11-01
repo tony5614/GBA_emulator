@@ -692,25 +692,26 @@ public:
     void BICS_rri(INSTRUCTION_FORMAT*);
     void BICS_rrr(INSTRUCTION_FORMAT*);
     
-    void MVM_lli(INSTRUCTION_FORMAT*);
-    void MVM_llr(INSTRUCTION_FORMAT*);
-    void MVM_lri(INSTRUCTION_FORMAT*);
-    void MVM_lrr(INSTRUCTION_FORMAT*);
-    void MVM_ari(INSTRUCTION_FORMAT*);
-    void MVM_arr(INSTRUCTION_FORMAT*);
-    void MVM_rri(INSTRUCTION_FORMAT*);
-    void MVM_rrr(INSTRUCTION_FORMAT*);
+    void MVN_lli(INSTRUCTION_FORMAT*);
+    void MVN_llr(INSTRUCTION_FORMAT*);
+    void MVN_lri(INSTRUCTION_FORMAT*);
+    void MVN_lrr(INSTRUCTION_FORMAT*);
+    void MVN_ari(INSTRUCTION_FORMAT*);
+    void MVN_arr(INSTRUCTION_FORMAT*);
+    void MVN_rri(INSTRUCTION_FORMAT*);
+    void MVN_rrr(INSTRUCTION_FORMAT*);
+
+    void MVNS_lli(INSTRUCTION_FORMAT*);
+    void MVNS_llr(INSTRUCTION_FORMAT*);
+    void MVNS_lri(INSTRUCTION_FORMAT*);
+    void MVNS_lrr(INSTRUCTION_FORMAT*);
+    void MVNS_ari(INSTRUCTION_FORMAT*);
+    void MVNS_arr(INSTRUCTION_FORMAT*);
+    void MVNS_rri(INSTRUCTION_FORMAT*);
+    void MVNS_rrr(INSTRUCTION_FORMAT*);
     
-    void MVMS_lli(INSTRUCTION_FORMAT*);
-    void MVMS_llr(INSTRUCTION_FORMAT*);
-    void MVMS_lri(INSTRUCTION_FORMAT*);
-    void MVMS_lrr(INSTRUCTION_FORMAT*);
-    void MVMS_ari(INSTRUCTION_FORMAT*);
-    void MVMS_arr(INSTRUCTION_FORMAT*);
-    void MVMS_rri(INSTRUCTION_FORMAT*);
-    void MVMS_rrr(INSTRUCTION_FORMAT*);
-    
-    void ANDS_imm (INSTRUCTION_FORMAT*);	
+    void AND_imm (INSTRUCTION_FORMAT*);	
+    void ANDS_imm (INSTRUCTION_FORMAT*);
     void EOR_imm (INSTRUCTION_FORMAT*);
     void EORS_imm (INSTRUCTION_FORMAT*);
     void SUB_imm (INSTRUCTION_FORMAT*);
