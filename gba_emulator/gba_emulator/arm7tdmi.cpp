@@ -5053,6 +5053,19 @@ void GBA_EMUALTOR_ARM7TDMI::MVNS_rrr(INSTRUCTION_FORMAT *instruction_ptr)
 //https://alisdair.mcdiarmid.org/arm-immediate-value-encoding/
 void GBA_EMUALTOR_ARM7TDMI::AND_imm(INSTRUCTION_FORMAT *instruction_ptr) 
 {
+    U32 Rn = instruction_ptr->data_proc.Rn;
+    U32 Rd = instruction_ptr->data_proc.Rd;
+    U32 Rm = instruction_ptr->data_proc.operand2.Rm;
+    U8  rotate_amount = instruction_ptr->data_proc.operand2.rotate;     //rotate right
+    U32 operand2 = 0;
+    U32 rotate_remain_part = 0;
+    U32 Rd_prev_val = this->R[Rn];
+    U8 shift_amount;
+
+    operand2 = ((U32)instruction_ptr->data_proc.operand2.imm) >> rotate_amount * 2;
+    operand2 |= ((U32)instruction_ptr->data_proc.operand2.imm) << (32 - rotate_amount * 2);
+
+    this->R[Rd] = this->R[Rn] & operand2;
 }
 
 void GBA_EMUALTOR_ARM7TDMI::ANDS_imm(INSTRUCTION_FORMAT *instruction_ptr) 
@@ -5064,6 +5077,7 @@ void GBA_EMUALTOR_ARM7TDMI::ANDS_imm(INSTRUCTION_FORMAT *instruction_ptr)
     U32 operand2           = 0;
     U32 rotate_remain_part = 0;
     U32 Rd_prev_val        = this->R[Rn];
+    U8 shift_amount;
    
     operand2  = ((U32)instruction_ptr->data_proc.operand2.imm) >> rotate_amount * 2;
     operand2 |= ((U32)instruction_ptr->data_proc.operand2.imm) << (32 - rotate_amount * 2);
@@ -5094,6 +5108,36 @@ void GBA_EMUALTOR_ARM7TDMI::EOR_imm(INSTRUCTION_FORMAT *instruction_ptr)
 
 void GBA_EMUALTOR_ARM7TDMI::EORS_imm(INSTRUCTION_FORMAT *instruction_ptr)
 {
+    U32 Rn = instruction_ptr->data_proc.Rn;
+    U32 Rd = instruction_ptr->data_proc.Rd;
+    U32 Rm = instruction_ptr->data_proc.operand2.Rm;
+    U8  rotate_amount = instruction_ptr->data_proc.operand2.rotate;     //rotate right
+    U32 operand2 = 0;
+    U32 rotate_remain_part = 0;
+    U32 Rd_prev_val = this->R[Rn];
+    U8 shift_amount;
+
+    operand2 = ((U32)instruction_ptr->data_proc.operand2.imm) >> rotate_amount * 2;
+    operand2 |= ((U32)instruction_ptr->data_proc.operand2.imm) << (32 - rotate_amount * 2);
+
+    this->R[Rd] = this->R[Rn] ^ operand2;
+
+    //TODO : ?
+    //shift_amount : 0 ~ 31
+    if (shift_amount != 0)
+    {
+        this->CPSR_usr.C = this->R[Rm] & BIT(shift_amount - 1);
+    }
+    else // shift_amount == 0
+    {
+        this->CPSR_usr.C = this->R[Rm] & BIT(31);
+    }
+
+    //update CPSR Z
+    this->CPSR_usr.Z = !this->R[Rd];
+
+    //update CPSR S
+    this->CPSR_usr.N = this->R[Rd] >> 31;
 }
 
 void GBA_EMUALTOR_ARM7TDMI::SUB_imm(INSTRUCTION_FORMAT *instruction_ptr)
@@ -5102,6 +5146,36 @@ void GBA_EMUALTOR_ARM7TDMI::SUB_imm(INSTRUCTION_FORMAT *instruction_ptr)
 
 void GBA_EMUALTOR_ARM7TDMI::SUBS_imm(INSTRUCTION_FORMAT *instruction_ptr)
 {
+    U32 Rn = instruction_ptr->data_proc.Rn;
+    U32 Rd = instruction_ptr->data_proc.Rd;
+    U32 Rm = instruction_ptr->data_proc.operand2.Rm;
+    U8  rotate_amount = instruction_ptr->data_proc.operand2.rotate;     //rotate right
+    U32 operand2 = 0;
+    U32 rotate_remain_part = 0;
+    U32 Rd_prev_val = this->R[Rn];
+    U8 shift_amount;
+
+    operand2 = ((U32)instruction_ptr->data_proc.operand2.imm) >> rotate_amount * 2;
+    operand2 |= ((U32)instruction_ptr->data_proc.operand2.imm) << (32 - rotate_amount * 2);
+
+    this->R[Rd] = this->R[Rn] - operand2;
+
+    //TODO : ?
+    //shift_amount : 0 ~ 31
+    if (shift_amount != 0)
+    {
+        this->CPSR_usr.C = this->R[Rm] & BIT(shift_amount - 1);
+    }
+    else // shift_amount == 0
+    {
+        this->CPSR_usr.C = this->R[Rm] & BIT(31);
+    }
+
+    //update CPSR Z
+    this->CPSR_usr.Z = !this->R[Rd];
+
+    //update CPSR S
+    this->CPSR_usr.N = this->R[Rd] >> 31;
 }
 
 void GBA_EMUALTOR_ARM7TDMI::RSB_imm(INSTRUCTION_FORMAT *instruction_ptr)
@@ -5110,6 +5184,36 @@ void GBA_EMUALTOR_ARM7TDMI::RSB_imm(INSTRUCTION_FORMAT *instruction_ptr)
 
 void GBA_EMUALTOR_ARM7TDMI::RSBS_imm(INSTRUCTION_FORMAT *instruction_ptr)
 {
+    U32 Rn = instruction_ptr->data_proc.Rn;
+    U32 Rd = instruction_ptr->data_proc.Rd;
+    U32 Rm = instruction_ptr->data_proc.operand2.Rm;
+    U8  rotate_amount = instruction_ptr->data_proc.operand2.rotate;     //rotate right
+    U32 operand2 = 0;
+    U32 rotate_remain_part = 0;
+    U32 Rd_prev_val = this->R[Rn];
+    U8 shift_amount;
+
+    operand2 = ((U32)instruction_ptr->data_proc.operand2.imm) >> rotate_amount * 2;
+    operand2 |= ((U32)instruction_ptr->data_proc.operand2.imm) << (32 - rotate_amount * 2);
+
+    this->R[Rd] = operand2 - this->R[Rn];
+
+    //TODO : ?
+    //shift_amount : 0 ~ 31
+    if (shift_amount != 0)
+    {
+        this->CPSR_usr.C = this->R[Rm] & BIT(shift_amount - 1);
+    }
+    else // shift_amount == 0
+    {
+        this->CPSR_usr.C = this->R[Rm] & BIT(31);
+    }
+
+    //update CPSR Z
+    this->CPSR_usr.Z = !this->R[Rd];
+
+    //update CPSR S
+    this->CPSR_usr.N = this->R[Rd] >> 31;
 }
 
 void GBA_EMUALTOR_ARM7TDMI::ADD_imm(INSTRUCTION_FORMAT *instruction_ptr)
@@ -5118,6 +5222,36 @@ void GBA_EMUALTOR_ARM7TDMI::ADD_imm(INSTRUCTION_FORMAT *instruction_ptr)
 
 void GBA_EMUALTOR_ARM7TDMI::ADDS_imm(INSTRUCTION_FORMAT *instruction_ptr)
 {
+    U32 Rn = instruction_ptr->data_proc.Rn;
+    U32 Rd = instruction_ptr->data_proc.Rd;
+    U32 Rm = instruction_ptr->data_proc.operand2.Rm;
+    U8  rotate_amount = instruction_ptr->data_proc.operand2.rotate;     //rotate right
+    U32 operand2 = 0;
+    U32 rotate_remain_part = 0;
+    U32 Rd_prev_val = this->R[Rn];
+    U8 shift_amount;
+
+    operand2 = ((U32)instruction_ptr->data_proc.operand2.imm) >> rotate_amount * 2;
+    operand2 |= ((U32)instruction_ptr->data_proc.operand2.imm) << (32 - rotate_amount * 2);
+
+    this->R[Rd] =  this->R[Rn] + operand2;
+
+    //TODO : ?
+    //shift_amount : 0 ~ 31
+    if (shift_amount != 0)
+    {
+        this->CPSR_usr.C = this->R[Rm] & BIT(shift_amount - 1);
+    }
+    else // shift_amount == 0
+    {
+        this->CPSR_usr.C = this->R[Rm] & BIT(31);
+    }
+
+    //update CPSR Z
+    this->CPSR_usr.Z = !this->R[Rd];
+
+    //update CPSR S
+    this->CPSR_usr.N = this->R[Rd] >> 31;
 }
 
 void GBA_EMUALTOR_ARM7TDMI::ADC_imm(INSTRUCTION_FORMAT *instruction_ptr)
@@ -5126,6 +5260,36 @@ void GBA_EMUALTOR_ARM7TDMI::ADC_imm(INSTRUCTION_FORMAT *instruction_ptr)
 
 void GBA_EMUALTOR_ARM7TDMI::ADCS_imm(INSTRUCTION_FORMAT *instruction_ptr)
 {
+    U32 Rn = instruction_ptr->data_proc.Rn;
+    U32 Rd = instruction_ptr->data_proc.Rd;
+    U32 Rm = instruction_ptr->data_proc.operand2.Rm;
+    U8  rotate_amount = instruction_ptr->data_proc.operand2.rotate;     //rotate right
+    U32 operand2 = 0;
+    U32 rotate_remain_part = 0;
+    U32 Rd_prev_val = this->R[Rn];
+    U8 shift_amount;
+
+    operand2 = ((U32)instruction_ptr->data_proc.operand2.imm) >> rotate_amount * 2;
+    operand2 |= ((U32)instruction_ptr->data_proc.operand2.imm) << (32 - rotate_amount * 2);
+
+    this->R[Rd] = this->R[Rn] + operand2 + this->CPSR_usr.C;
+
+    //TODO : ?
+    //shift_amount : 0 ~ 31
+    if (shift_amount != 0)
+    {
+        this->CPSR_usr.C = this->R[Rm] & BIT(shift_amount - 1);
+    }
+    else // shift_amount == 0
+    {
+        this->CPSR_usr.C = this->R[Rm] & BIT(31);
+    }
+
+    //update CPSR Z
+    this->CPSR_usr.Z = !this->R[Rd];
+
+    //update CPSR S
+    this->CPSR_usr.N = this->R[Rd] >> 31;
 }
 
 void GBA_EMUALTOR_ARM7TDMI::SBC_imm(INSTRUCTION_FORMAT *instruction_ptr)
@@ -5134,6 +5298,36 @@ void GBA_EMUALTOR_ARM7TDMI::SBC_imm(INSTRUCTION_FORMAT *instruction_ptr)
 
 void GBA_EMUALTOR_ARM7TDMI::SBCS_imm(INSTRUCTION_FORMAT *instruction_ptr)
 {
+    U32 Rn = instruction_ptr->data_proc.Rn;
+    U32 Rd = instruction_ptr->data_proc.Rd;
+    U32 Rm = instruction_ptr->data_proc.operand2.Rm;
+    U8  rotate_amount = instruction_ptr->data_proc.operand2.rotate;     //rotate right
+    U32 operand2 = 0;
+    U32 rotate_remain_part = 0;
+    U32 Rd_prev_val = this->R[Rn];
+    U8 shift_amount;
+
+    operand2 = ((U32)instruction_ptr->data_proc.operand2.imm) >> rotate_amount * 2;
+    operand2 |= ((U32)instruction_ptr->data_proc.operand2.imm) << (32 - rotate_amount * 2);
+
+    this->R[Rd] = this->R[Rn] - operand2 + this->CPSR_usr.C;
+
+    //TODO : ?
+    //shift_amount : 0 ~ 31
+    if (shift_amount != 0)
+    {
+        this->CPSR_usr.C = this->R[Rm] & BIT(shift_amount - 1);
+    }
+    else // shift_amount == 0
+    {
+        this->CPSR_usr.C = this->R[Rm] & BIT(31);
+    }
+
+    //update CPSR Z
+    this->CPSR_usr.Z = !this->R[Rd];
+
+    //update CPSR S
+    this->CPSR_usr.N = this->R[Rd] >> 31;
 }
 
 void GBA_EMUALTOR_ARM7TDMI::RSC_imm(INSTRUCTION_FORMAT *instruction_ptr)
@@ -5142,10 +5336,60 @@ void GBA_EMUALTOR_ARM7TDMI::RSC_imm(INSTRUCTION_FORMAT *instruction_ptr)
 
 void GBA_EMUALTOR_ARM7TDMI::RSCS_imm(INSTRUCTION_FORMAT *instruction_ptr)
 {
+    U32 Rn = instruction_ptr->data_proc.Rn;
+    U32 Rd = instruction_ptr->data_proc.Rd;
+    U32 Rm = instruction_ptr->data_proc.operand2.Rm;
+    U8  rotate_amount = instruction_ptr->data_proc.operand2.rotate;     //rotate right
+    U32 operand2 = 0;
+    U32 rotate_remain_part = 0;
+    U32 Rd_prev_val = this->R[Rn];
+    U8 shift_amount;
+
+    operand2 = ((U32)instruction_ptr->data_proc.operand2.imm) >> rotate_amount * 2;
+    operand2 |= ((U32)instruction_ptr->data_proc.operand2.imm) << (32 - rotate_amount * 2);
+
+    this->R[Rd] = operand2 - this->R[Rn] - 1 + this->CPSR_usr.C;
+
+    //TODO : ?
+    //shift_amount : 0 ~ 31
+    if (shift_amount != 0)
+    {
+        this->CPSR_usr.C = this->R[Rm] & BIT(shift_amount - 1);
+    }
+    else // shift_amount == 0
+    {
+        this->CPSR_usr.C = this->R[Rm] & BIT(31);
+    }
+
+    //update CPSR Z
+    this->CPSR_usr.Z = !this->R[Rd];
+
+    //update CPSR S
+    this->CPSR_usr.N = this->R[Rd] >> 31;
 }
 
 void GBA_EMUALTOR_ARM7TDMI::TSTS_imm(INSTRUCTION_FORMAT *instruction_ptr)
 {
+    U32 Rn = instruction_ptr->data_proc.Rn;
+    U32 Rd = instruction_ptr->data_proc.Rd;
+    U32 Rm = instruction_ptr->data_proc.operand2.Rm;
+    U8  rotate_amount = instruction_ptr->data_proc.operand2.rotate;     //rotate right
+    U32 operand2 = 0;
+    U32 rotate_remain_part = 0;
+    U32 Rd_prev_val = this->R[Rn];
+    U8 shift_amount;
+    U32 discarded_Rd;
+
+    operand2 = ((U32)instruction_ptr->data_proc.operand2.imm) >> rotate_amount * 2;
+    operand2 |= ((U32)instruction_ptr->data_proc.operand2.imm) << (32 - rotate_amount * 2);
+
+    discarded_Rd = this->R[Rn] & operand2;
+
+    //update CPSR Z
+    this->CPSR_usr.Z = !discarded_Rd;
+
+    //update CPSR S
+    this->CPSR_usr.N = discarded_Rd >> 31;
 }
 
 void GBA_EMUALTOR_ARM7TDMI::MSR_ic(INSTRUCTION_FORMAT *instruction_ptr)
