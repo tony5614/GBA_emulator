@@ -318,6 +318,40 @@ typedef struct instruction_format
         U32 cond : 4;
     }cop_reg_tfr;
 
+    //PSR Transfer
+    union
+    {
+        union 
+        {
+            struct 
+            {
+                union 
+                {
+                    struct
+                    {
+                        U32 Rm : 4;
+                        U32 rsv0 : 8;
+                    };
+                    struct
+                    {
+                        U32 imm : 8;
+                        U32 rotate : 4; //chaper 4.5.3
+                    };
+                };
+            }source_operand;
+        };
+        
+        U32 Rd : 4;
+        U32 rsv1 : 6;
+        union 
+        {
+            U32 Ps : 1;
+            U32 Pd : 1;
+        };
+        U32 rsv2 : 2;
+        U32 I : 1;
+        U32 cond : 4;
+    }psr_tsfr;
 
     //Software Interrupt
     union
@@ -356,15 +390,22 @@ typedef struct cartridge_rom_header
 
 typedef struct program_status_register 
 {
-    U32 mode : 5;
-    U32 T    : 1;     //reflect the processor is executing in THUMB or ARM state, the software must never change the state of this bit
-    U32 F    : 1;     //disable FIQ
-    U32 I    : 1;     //disable IRQ
-    U32 rsv  : 20;
-    U32 V    : 1;
-    U32 C    : 1;
-    U32 Z    : 1;
-    U32 N    : 1;
+    union
+    {
+        struct 
+        {
+            U32 mode : 5;
+            U32 T : 1;     //reflect the processor is executing in THUMB or ARM state, the software must never change the state of this bit
+            U32 F : 1;     //disable FIQ
+            U32 I : 1;     //disable IRQ
+            U32 rsv : 20;
+            U32 V : 1;
+            U32 C : 1;
+            U32 Z : 1;
+            U32 N : 1;
+        };
+        U32 val;
+    };
 }CPSR, SPSR;
 
 #pragma pack()
@@ -413,6 +454,7 @@ public:
 };
 
 
+
 class GBA_EMUALTOR_ARM7TDMI
 {
 public:
@@ -436,6 +478,8 @@ public:
     SPSR SPSR_abt;
     SPSR SPSR_irq;
     SPSR SPSR_und;
+
+    U8 mode;
 
     MEMORY   memory;
     void readROM(std::string filename) 
