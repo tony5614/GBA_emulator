@@ -3507,7 +3507,7 @@ void GBA_EMUALTOR_ARM7TDMI::CMPS_rrr(INSTRUCTION_FORMAT *instruction_ptr)
     this->CPSR_usr.V = (Rd_prev_val > this->R[Rd]) ? 1 : 0;
 }
 
-//CMN is like ADD ¡V subtract of a negative number is the same as add.
+//CMN is like ADD â€“ subtract of a negative number is the same as add.
 
 
 //logical left immediate
@@ -5392,8 +5392,98 @@ void GBA_EMUALTOR_ARM7TDMI::TSTS_imm(INSTRUCTION_FORMAT *instruction_ptr)
     this->CPSR_usr.N = discarded_Rd >> 31;
 }
 
+//transfer register contents to PSR
 void GBA_EMUALTOR_ARM7TDMI::MSR_ic(INSTRUCTION_FORMAT *instruction_ptr)
 {
+    U32 source_content;
+
+    //0b101000
+    if (instruction_ptr->psr_tsfr.rsv1 == 0x28)//transfer register contents or immdiate value to PSR flag bits only
+    {
+        if (instruction_ptr->psr_tsfr.I)//immediate
+        {
+            source_content = instruction_ptr->psr_tsfr.source_operand.imm;
+            source_content = source_content << (instruction_ptr->psr_tsfr.source_operand.rotate * 2);
+        }
+        else
+        {
+            source_content = this->R[instruction_ptr->psr_tsfr.source_operand.Rm];
+        }
+    }
+    else 
+    {
+        source_content = this->R[instruction_ptr->psr_tsfr.source_operand.Rm];
+    }
+   
+    if (instruction_ptr->psr_tsfr.Ps) //SPSR
+    {
+        switch (this->mode) 
+        {
+        case  USR_MODE:
+            //??
+            break;
+        case FIQ_MODE:
+            if (instruction_ptr->psr_tsfr.rsv1 == 0x28)//transfer register contents or immdiate value to PSR flag bits only
+            {
+                this->SPSR_fiq.val = source_content & 0x0000000F;
+            }
+            else 
+            {
+                this->SPSR_fiq.val = source_content;
+            }
+            break;
+        case IRQ_MODE:
+            if (instruction_ptr->psr_tsfr.rsv1 == 0x28)//transfer register contents or immdiate value to PSR flag bits only
+            {
+                this->SPSR_irq.val = source_content & 0x0000000F;
+            }
+            else
+            {
+                this->SPSR_irq.val = source_content;
+            }
+            break;
+        case SVC_MODE:
+            if (instruction_ptr->psr_tsfr.rsv1 == 0x28)//transfer register contents or immdiate value to PSR flag bits only
+            {
+                this->SPSR_svc.val = source_content & 0x0000000F;
+            }
+            else
+            {
+                this->SPSR_svc.val = source_content;
+            }
+            break;
+        case ABT_MODE:
+            if (instruction_ptr->psr_tsfr.rsv1 == 0x28)//transfer register contents or immdiate value to PSR flag bits only
+            {
+                this->SPSR_abt.val = source_content & 0x0000000F;
+            }
+            else
+            {
+                this->SPSR_abt.val = source_content;
+            }
+            break;
+        case UND_MODE:
+            if (instruction_ptr->psr_tsfr.rsv1 == 0x28)//transfer register contents or immdiate value to PSR flag bits only
+            {
+                this->SPSR_und.val = source_content & 0x0000000F;
+            }
+            else
+            {
+                this->SPSR_und.val = source_content;
+            }
+            break;
+        case SYS_MODE:
+            //?
+            break;
+        default:
+            while (1);
+        }
+    }
+    else //CPSR
+    {
+        this->SPSR_und.val = source_content;
+    }
+
 }
 
 void GBA_EMUALTOR_ARM7TDMI::TEQS_imm(INSTRUCTION_FORMAT *instruction_ptr)
