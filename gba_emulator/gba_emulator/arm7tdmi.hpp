@@ -107,13 +107,13 @@ typedef struct instruction_format
                 {
                     union
                     {
-                        U32 rsv0 : 1;         // = 0
+                        U32 register_or_amount : 1;         // = 0
                         U32 shift_type : 2;
                         U32 shift_amount : 5;  //5 bit unsigned integer
                     };
                     union
                     {
-                        U32 rsv0 : 1;          // = 1
+                        U32 register_or_amount : 1;          // = 1
                         U32 shift_type : 2;
                         U32 rsv1 : 1;
                         U32 shift_reg : 4;     //shift amount specified in botom byte of Rs
@@ -501,6 +501,11 @@ public:
     //----------------------//
     //-- opcode functions --//
     //----------------------//	
+    U32 get_shifted_operand2(INSTRUCTION_FORMAT *);
+    
+    void AND(INSTRUCTION_FORMAT*);
+
+
     void AND_lli(INSTRUCTION_FORMAT*);
     void AND_llr(INSTRUCTION_FORMAT*);
     void AND_lri(INSTRUCTION_FORMAT*);

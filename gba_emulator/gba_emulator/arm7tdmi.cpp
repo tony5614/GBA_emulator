@@ -22,17 +22,133 @@
 #define COND_AL             (0xE)     //(ignored)                   always
 
 //instruction bit[6:5]
-#define SHIFT_TYPE_LOGICAL_LEFT     (0x0)
-#define SHIFT_TYPE_LOGICAL_RIGHT    (0x0)
-#define SHIFT_TYPE_ARITHMETIC_RIGHT (0x0)
-#define SHIFT_TYPE_ROTATE_RIGHT     (0x0)
+#define LSL     (0x0)     //logical left
+#define LSR     (0x1)     //logical right
+#define ASR     (0x2)     //arithmetic right
+#define ROR     (0x3)     //rotate right
 
-
+//instruction bit[4]
+#define SHIFT_SOURCE_AMOUNT   (0x0)
+#define SHIFT_SOURCE_REGSITER (0x1)
 
 
 //class GBA_EMUALTOR_ARM7TDMI;
 
 
+U32 GBA_EMUALTOR_ARM7TDMI::get_shifted_operand2(INSTRUCTION_FORMAT *instruction_ptr)
+{
+    U32 source_operand2;
+    U32 shifted_operand2;
+    U16 shift_amount;
+    U8 new_carry;
+
+
+    //get shift amount
+    if (instruction_ptr->data_proc.operand2.shift.register_or_amount == SHIFT_SOURCE_REGSITER)
+    {
+        shift_amount = this->R[instruction_ptr->data_proc.operand2.shift.shift_reg] & 0xFF;
+    }
+    else 
+    {
+        shift_amount = instruction_ptr->data_proc.operand2.shift.shift_amount;
+    }
+
+    source_operand2 = this->R[instruction_ptr->data_proc.operand2.Rm];
+    
+    switch (instruction_ptr->data_proc.operand2.shift.shift_type)
+    {
+        case LSL:
+            shifted_operand2 = source_operand2 << shift_amount;
+            //only LSL #0 carry out is the old value of the CPSR C
+            if (shift_amount == 0) 
+            {
+            }
+            else if (shift_amount > 32) 
+            {
+                this->CPSR_usr.C = 0;
+            }
+            else //if (shift_amount != 0) 
+            {
+                this->CPSR_usr.C = (source_operand2 >> (32 - shift_amount)) & 0x1;
+            }
+            break;
+        case LSR:
+            shifted_operand2 = source_operand2 >> shift_amount;
+
+            if (shift_amount == 0)
+            {
+                while (1);
+            }
+            else if (shift_amount > 32)
+            {
+                this->CPSR_usr.C = 0;
+            }
+            else //if (shift_amount != 0) 
+            {
+                this->CPSR_usr.C = (source_operand2 >> (shift_amount - 1)) & 0x1;
+            }
+            break;
+        case ASR:
+            if (shift_amount == 0) 
+            {
+                shift_amount = 32;
+            }
+            shifted_operand2 = (U32)(((S32)source_operand2) >> shift_amount);
+            this->CPSR_usr.C = (source_operand2 >> (shift_amount - 1)) & 0x1;
+            break;
+        case ROR:
+            if (shift_amount == 0) //actually RRX, rotate right extended
+            {
+                new_carry = source_operand2 & 0x1;
+                shifted_operand2 = source_operand2 >> 1;
+                shifted_operand2 |= ((this->CPSR_usr.C) << 31);
+                this->CPSR_usr.C = new_carry;
+            }
+            else if (shift_amount > 32) 
+            {
+                while (1);
+            }
+            else 
+            {
+                this->CPSR_usr.C = (source_operand2 >> (shift_amount - 1)) & 0x1;
+                shifted_operand2 = source_operand2 >> shift_amount;
+                shifted_operand2 |= source_operand2 << (32 - shift_amount);
+            }
+            break;
+        defalult:
+            while (1);
+            break;
+    }
+    
+}
+
+void GBA_EMUALTOR_ARM7TDMI::AND(INSTRUCTION_FORMAT *instruction_ptr)
+{
+    U32 Rn = instruction_ptr->data_proc.Rn;
+    U32 Rd = instruction_ptr->data_proc.Rd;
+    U32 Rm = instruction_ptr->data_proc.operand2.Rm;
+    U32 operand2;
+    U8  shift_amount;
+    U8  rotate;
+
+    //operand2 is an immediate value
+    if (instruction_ptr->data_proc.I) 
+    {
+
+        operand2;
+    }
+    //operand2 is a rgister
+    else 
+    {
+        shift_amount = instruction_ptr->data_proc.operand2.shift.shift_amount;
+        operand2 = this->R[Rm];
+
+    }
+
+   ;
+    U8  shift_amount = instruction_ptr->data_proc.operand2.shift.shift_amount;
+    this->R[Rd] = this->R[Rn] & (((U32)this->R[Rm]) << shift_amount);
+}
 
 
 //logical left immediate
