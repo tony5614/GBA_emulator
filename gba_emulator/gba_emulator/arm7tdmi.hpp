@@ -399,10 +399,10 @@ typedef struct program_status_register
             U32 F : 1;     //disable FIQ
             U32 I : 1;     //disable IRQ
             U32 rsv : 20;
-            U32 V : 1;
-            U32 C : 1;
-            U32 Z : 1;
-            U32 N : 1;
+            U32 V : 1;      //oVerflow
+            U32 C : 1;      //Carry
+            U32 Z : 1;      //Zero
+            U32 N : 1;      //Negative
         };
         U32 val;
     };
@@ -502,8 +502,24 @@ public:
     //-- opcode functions --//
     //----------------------//	
     U32 get_shifted_operand2(INSTRUCTION_FORMAT *);
-    
+    U32 get_rotated_operand2(INSTRUCTION_FORMAT *);
+    void update_CPSR_flags(INSTRUCTION_FORMAT *, U32);
     void AND(INSTRUCTION_FORMAT*);
+    void EOR(INSTRUCTION_FORMAT*);
+    void SUB(INSTRUCTION_FORMAT*);
+    void RSB(INSTRUCTION_FORMAT*);
+    void ADD(INSTRUCTION_FORMAT*);
+    void ADC(INSTRUCTION_FORMAT*);
+    void SBC(INSTRUCTION_FORMAT*);
+    void RSC(INSTRUCTION_FORMAT*);
+    void TST(INSTRUCTION_FORMAT*);
+    void TEQ(INSTRUCTION_FORMAT*);
+    void CMP(INSTRUCTION_FORMAT*);
+    void CMN(INSTRUCTION_FORMAT*);
+    void ORR(INSTRUCTION_FORMAT*);
+    void MOV(INSTRUCTION_FORMAT*);
+    void BIC(INSTRUCTION_FORMAT*);
+    void MVN(INSTRUCTION_FORMAT*);
 
 
     void AND_lli(INSTRUCTION_FORMAT*);

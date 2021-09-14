@@ -41,19 +41,36 @@ U32 GBA_EMUALTOR_ARM7TDMI::get_shifted_operand2(INSTRUCTION_FORMAT *instruction_
     U32 shifted_operand2;
     U16 shift_amount;
     U8 new_carry;
-
-
+    
     //get shift amount
     if (instruction_ptr->data_proc.operand2.shift.register_or_amount == SHIFT_SOURCE_REGSITER)
     {
-        shift_amount = this->R[instruction_ptr->data_proc.operand2.shift.shift_reg] & 0xFF;
+        //4.4.5 Using R15 as an operand
+        if (instruction_ptr->data_proc.operand2.shift.shift_reg == 15) 
+        {
+            shift_amount = (this->R[instruction_ptr->data_proc.operand2.shift.shift_reg] + 12) & 0xFF;
+        }
+        else 
+        {
+            shift_amount = this->R[instruction_ptr->data_proc.operand2.shift.shift_reg] & 0xFF;
+        }
     }
     else 
     {
         shift_amount = instruction_ptr->data_proc.operand2.shift.shift_amount;
     }
 
-    source_operand2 = this->R[instruction_ptr->data_proc.operand2.Rm];
+
+    //4.4.5 Using R15 as an operand
+    if(instruction_ptr->data_proc.operand2.Rm == 15)
+    {
+        source_operand2 = this->R[instruction_ptr->data_proc.operand2.Rm] + 8;
+    }
+    else 
+    {
+        source_operand2 = this->R[instruction_ptr->data_proc.operand2.Rm];
+    }
+    
     
     switch (instruction_ptr->data_proc.operand2.shift.shift_type)
     {
@@ -119,36 +136,382 @@ U32 GBA_EMUALTOR_ARM7TDMI::get_shifted_operand2(INSTRUCTION_FORMAT *instruction_
             while (1);
             break;
     }
-    
+    return shifted_operand2;
 }
+
+U32 GBA_EMUALTOR_ARM7TDMI::get_rotated_operand2(INSTRUCTION_FORMAT *instruction_ptr)
+{
+    U8  rotate;
+    U32 operand2;
+
+    rotate = instruction_ptr->data_proc.operand2.rotate;
+    operand2 = instruction_ptr->data_proc.operand2.imm;
+    operand2 = operand2 >> (rotate * 2);
+    operand2 |= instruction_ptr->data_proc.operand2.imm << (32 - (rotate * 2));
+
+    return operand2;
+}
+
+
 
 void GBA_EMUALTOR_ARM7TDMI::AND(INSTRUCTION_FORMAT *instruction_ptr)
 {
-    U32 Rn = instruction_ptr->data_proc.Rn;
-    U32 Rd = instruction_ptr->data_proc.Rd;
-    U32 Rm = instruction_ptr->data_proc.operand2.Rm;
+    U8 Rn = instruction_ptr->data_proc.Rn;
+    U8 Rd = instruction_ptr->data_proc.Rd;
     U32 operand2;
-    U8  shift_amount;
-    U8  rotate;
 
     //operand2 is an immediate value
     if (instruction_ptr->data_proc.I) 
     {
-
-        operand2;
+        operand2 = get_rotated_operand2(instruction_ptr);
     }
     //operand2 is a rgister
     else 
     {
-        shift_amount = instruction_ptr->data_proc.operand2.shift.shift_amount;
-        operand2 = this->R[Rm];
-
+        operand2 = get_shifted_operand2(instruction_ptr);
     }
 
-   ;
-    U8  shift_amount = instruction_ptr->data_proc.operand2.shift.shift_amount;
-    this->R[Rd] = this->R[Rn] & (((U32)this->R[Rm]) << shift_amount);
+    this->R[Rd] = this->R[Rn] & operand2;
+    update_CPSR_flags(instruction_ptr, this->R[Rd]);
 }
+
+void GBA_EMUALTOR_ARM7TDMI::EOR(INSTRUCTION_FORMAT *instruction_ptr)
+{
+    U8 Rn = instruction_ptr->data_proc.Rn;
+    U8 Rd = instruction_ptr->data_proc.Rd;
+    U32 operand2;
+
+    //operand2 is an immediate value
+    if (instruction_ptr->data_proc.I)
+    {
+        operand2 = get_rotated_operand2(instruction_ptr);
+    }
+    //operand2 is a rgister
+    else
+    {
+        operand2 = get_shifted_operand2(instruction_ptr);
+    }
+
+    this->R[Rd] = this->R[Rn] ^ operand2;
+    update_CPSR_flags(instruction_ptr, this->R[Rd]);
+}
+void GBA_EMUALTOR_ARM7TDMI::SUB(INSTRUCTION_FORMAT *instruction_ptr)
+{
+    U8 Rn = instruction_ptr->data_proc.Rn;
+    U8 Rd = instruction_ptr->data_proc.Rd;
+    U32 operand2;
+
+    //operand2 is an immediate value
+    if (instruction_ptr->data_proc.I)
+    {
+        operand2 = get_rotated_operand2(instruction_ptr);
+    }
+    //operand2 is a rgister
+    else
+    {
+        operand2 = get_shifted_operand2(instruction_ptr);
+    }
+
+    this->R[Rd] = this->R[Rn] - operand2;
+    update_CPSR_flags(instruction_ptr, this->R[Rd]);
+}
+void GBA_EMUALTOR_ARM7TDMI::RSB(INSTRUCTION_FORMAT *instruction_ptr)
+{
+    U8 Rn = instruction_ptr->data_proc.Rn;
+    U8 Rd = instruction_ptr->data_proc.Rd;
+    U32 operand2;
+
+    //operand2 is an immediate value
+    if (instruction_ptr->data_proc.I)
+    {
+        operand2 = get_rotated_operand2(instruction_ptr);
+    }
+    //operand2 is a rgister
+    else
+    {
+        operand2 = get_shifted_operand2(instruction_ptr);
+    }
+
+    this->R[Rd] = operand2 - this->R[Rn];
+    update_CPSR_flags(instruction_ptr, this->R[Rd]);
+}
+void GBA_EMUALTOR_ARM7TDMI::ADD(INSTRUCTION_FORMAT *instruction_ptr)
+{
+    U8 Rn = instruction_ptr->data_proc.Rn;
+    U8 Rd = instruction_ptr->data_proc.Rd;
+    U32 operand2;
+
+    //operand2 is an immediate value
+    if (instruction_ptr->data_proc.I)
+    {
+        operand2 = get_rotated_operand2(instruction_ptr);
+    }
+    //operand2 is a rgister
+    else
+    {
+        operand2 = get_shifted_operand2(instruction_ptr);
+    }
+
+    this->R[Rd] = this->R[Rn] + operand2;
+    update_CPSR_flags(instruction_ptr, this->R[Rd]);
+}
+void GBA_EMUALTOR_ARM7TDMI::ADC(INSTRUCTION_FORMAT *instruction_ptr)
+{
+    U8 Rn = instruction_ptr->data_proc.Rn;
+    U8 Rd = instruction_ptr->data_proc.Rd;
+    U32 operand2;
+
+    //operand2 is an immediate value
+    if (instruction_ptr->data_proc.I)
+    {
+        operand2 = get_rotated_operand2(instruction_ptr);
+    }
+    //operand2 is a rgister
+    else
+    {
+        operand2 = get_shifted_operand2(instruction_ptr);
+    }
+
+    this->R[Rd] = this->R[Rn] + operand2 + this->CPSR_usr.C;
+    update_CPSR_flags(instruction_ptr, this->R[Rd]);
+}
+void GBA_EMUALTOR_ARM7TDMI::SBC(INSTRUCTION_FORMAT *instruction_ptr)
+{
+    U8 Rn = instruction_ptr->data_proc.Rn;
+    U8 Rd = instruction_ptr->data_proc.Rd;
+    U32 operand2;
+
+    //operand2 is an immediate value
+    if (instruction_ptr->data_proc.I)
+    {
+        operand2 = get_rotated_operand2(instruction_ptr);
+    }
+    //operand2 is a rgister
+    else
+    {
+        operand2 = get_shifted_operand2(instruction_ptr);
+    }
+
+    this->R[Rd] = this->R[Rn] - operand2 + this->CPSR_usr.C - 1;
+    update_CPSR_flags(instruction_ptr, this->R[Rd]);
+}
+void GBA_EMUALTOR_ARM7TDMI::RSC(INSTRUCTION_FORMAT *instruction_ptr)
+{
+    U8 Rn = instruction_ptr->data_proc.Rn;
+    U8 Rd = instruction_ptr->data_proc.Rd;
+    U32 operand2;
+
+    //operand2 is an immediate value
+    if (instruction_ptr->data_proc.I)
+    {
+        operand2 = get_rotated_operand2(instruction_ptr);
+    }
+    //operand2 is a rgister
+    else
+    {
+        operand2 = get_shifted_operand2(instruction_ptr);
+    }
+
+    this->R[Rd] = operand2 - this->R[Rn] + this->CPSR_usr.C - 1;
+    update_CPSR_flags(instruction_ptr, this->R[Rd]);
+}
+void GBA_EMUALTOR_ARM7TDMI::TST(INSTRUCTION_FORMAT *instruction_ptr)
+{
+    U8 Rn = instruction_ptr->data_proc.Rn;
+    U8 Rd = instruction_ptr->data_proc.Rd;
+    U32 operand2;
+    U32 Rd_value_tmp;
+
+    //operand2 is an immediate value
+    if (instruction_ptr->data_proc.I)
+    {
+        operand2 = get_rotated_operand2(instruction_ptr);
+    }
+    //operand2 is a rgister
+    else
+    {
+        operand2 = get_shifted_operand2(instruction_ptr);
+    }
+
+    Rd_value_tmp = this->R[Rn] & operand2;
+    update_CPSR_flags(instruction_ptr, Rd_value_tmp);
+}
+void GBA_EMUALTOR_ARM7TDMI::TEQ(INSTRUCTION_FORMAT *instruction_ptr)
+{
+    U8 Rn = instruction_ptr->data_proc.Rn;
+    U8 Rd = instruction_ptr->data_proc.Rd;
+    U32 operand2;
+    U32 Rd_value_tmp;
+
+    //operand2 is an immediate value
+    if (instruction_ptr->data_proc.I)
+    {
+        operand2 = get_rotated_operand2(instruction_ptr);
+    }
+    //operand2 is a rgister
+    else
+    {
+        operand2 = get_shifted_operand2(instruction_ptr);
+    }
+
+    Rd_value_tmp = this->R[Rn] ^ operand2;
+    update_CPSR_flags(instruction_ptr, Rd_value_tmp);
+}
+void GBA_EMUALTOR_ARM7TDMI::CMP(INSTRUCTION_FORMAT *instruction_ptr)
+{
+    U8 Rn = instruction_ptr->data_proc.Rn;
+    U8 Rd = instruction_ptr->data_proc.Rd;
+    U32 operand2;
+    U32 Rd_value_tmp;
+
+    //operand2 is an immediate value
+    if (instruction_ptr->data_proc.I)
+    {
+        operand2 = get_rotated_operand2(instruction_ptr);
+    }
+    //operand2 is a rgister
+    else
+    {
+        operand2 = get_shifted_operand2(instruction_ptr);
+    }
+
+    Rd_value_tmp = this->R[Rn] - operand2;
+    update_CPSR_flags(instruction_ptr, Rd_value_tmp);
+}
+void GBA_EMUALTOR_ARM7TDMI::CMN(INSTRUCTION_FORMAT *instruction_ptr)
+{
+    U8 Rn = instruction_ptr->data_proc.Rn;
+    U8 Rd = instruction_ptr->data_proc.Rd;
+    U32 operand2;
+    U32 Rd_value_tmp;
+
+    //operand2 is an immediate value
+    if (instruction_ptr->data_proc.I)
+    {
+        operand2 = get_rotated_operand2(instruction_ptr);
+    }
+    //operand2 is a rgister
+    else
+    {
+        operand2 = get_shifted_operand2(instruction_ptr);
+    }
+
+    Rd_value_tmp = this->R[Rn] + operand2;
+    update_CPSR_flags(instruction_ptr, Rd_value_tmp);
+}
+
+
+void GBA_EMUALTOR_ARM7TDMI::ORR(INSTRUCTION_FORMAT *instruction_ptr)
+{
+    U8 Rn = instruction_ptr->data_proc.Rn;
+    U8 Rd = instruction_ptr->data_proc.Rd;
+    U32 operand2;
+
+    //operand2 is an immediate value
+    if (instruction_ptr->data_proc.I)
+    {
+        operand2 = get_rotated_operand2(instruction_ptr);
+    }
+    //operand2 is a rgister
+    else
+    {
+        operand2 = get_shifted_operand2(instruction_ptr);
+    }
+
+    this->R[Rd] = this->R[Rn] | operand2;
+    update_CPSR_flags(instruction_ptr, this->R[Rd]);
+}
+
+
+void GBA_EMUALTOR_ARM7TDMI::MOV(INSTRUCTION_FORMAT *instruction_ptr)
+{
+    U8 Rn = instruction_ptr->data_proc.Rn;
+    U8 Rd = instruction_ptr->data_proc.Rd;
+    U32 operand2;
+
+    //operand2 is an immediate value
+    if (instruction_ptr->data_proc.I)
+    {
+        operand2 = get_rotated_operand2(instruction_ptr);
+    }
+    //operand2 is a rgister
+    else
+    {
+        operand2 = get_shifted_operand2(instruction_ptr);
+    }
+
+    this->R[Rd] =  operand2;
+    update_CPSR_flags(instruction_ptr, this->R[Rd]);
+}
+
+
+void GBA_EMUALTOR_ARM7TDMI::BIC(INSTRUCTION_FORMAT *instruction_ptr)
+{
+    U8 Rn = instruction_ptr->data_proc.Rn;
+    U8 Rd = instruction_ptr->data_proc.Rd;
+    U32 operand2;
+
+    //operand2 is an immediate value
+    if (instruction_ptr->data_proc.I)
+    {
+        operand2 = get_rotated_operand2(instruction_ptr);
+    }
+    //operand2 is a rgister
+    else
+    {
+        operand2 = get_shifted_operand2(instruction_ptr);
+    }
+
+    this->R[Rd] = this->R[Rn] & (~operand2);
+    update_CPSR_flags(instruction_ptr, this->R[Rd]);
+}
+
+
+
+void GBA_EMUALTOR_ARM7TDMI::MVN(INSTRUCTION_FORMAT *instruction_ptr)
+{
+    U8 Rn = instruction_ptr->data_proc.Rn;
+    U8 Rd = instruction_ptr->data_proc.Rd;
+    U32 operand2;
+
+    //operand2 is an immediate value
+    if (instruction_ptr->data_proc.I)
+    {
+        operand2 = get_rotated_operand2(instruction_ptr);
+    }
+    //operand2 is a rgister
+    else
+    {
+        operand2 = get_shifted_operand2(instruction_ptr);
+    }
+
+    this->R[Rd] = ~operand2;
+
+    update_CPSR_flags(instruction_ptr, this->R[Rd]);
+
+    if (Rd == 15) 
+    {
+        //mode_change()
+    }
+}
+
+
+void GBA_EMUALTOR_ARM7TDMI::update_CPSR_flags(INSTRUCTION_FORMAT *instruction_ptr, U32 Rd_value)
+{
+    if(instruction_ptr->data_proc.S)
+    {
+        if (Rd_value == 0)
+        {
+            this->CPSR_usr.Z = 1;
+        }
+        if (Rd_value & BIT(31))
+        {
+            this->CPSR_usr.N = 1;
+        }
+        //update C in get_shifted_operand2        
+    }
+}
+
 
 
 //logical left immediate
