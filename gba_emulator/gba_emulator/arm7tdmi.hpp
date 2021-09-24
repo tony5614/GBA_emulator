@@ -7,9 +7,11 @@
 typedef unsigned char  U8;
 typedef unsigned short U16;
 typedef unsigned int   U32;
+typedef unsigned long  U64;
 typedef          char  S8;
 typedef          short S16;
 typedef          int   S32;
+typedef          long  S64;
 
 
 #define BIT(n)         (1 << n)
@@ -157,7 +159,7 @@ typedef struct instruction_format
     {
         U32 Rm : 4;
         U32 rsv0 : 4;
-        U32 Rn : 4;
+        U32 Rs : 4;
         U32 RdLo : 4;
         U32 RdHi : 4;
         U32 S : 1;
@@ -238,7 +240,8 @@ typedef struct instruction_format
         U32 B : 1;
         U32 U : 1;
         U32 P : 1;
-        U32 rsv : 3;
+        U32 I : 1;
+        U32 rsv : 2;
         U32 cond : 4;
     }single_data_tsf;
 
@@ -329,7 +332,7 @@ typedef struct instruction_format
                 {
                     struct
                     {
-                        U32 Rm : 4;
+                        U32 Rm : 4;    //source register
                         U32 rsv0 : 8;
                     };
                     struct
@@ -345,8 +348,8 @@ typedef struct instruction_format
         U32 rsv1 : 6;
         union 
         {
-            U32 Ps : 1;
-            U32 Pd : 1;
+            U32 Ps : 1;    //source PSR
+            U32 Pd : 1;    //destination PSR
         };
         U32 rsv2 : 2;
         U32 I : 1;
@@ -520,6 +523,19 @@ public:
     void MOV(INSTRUCTION_FORMAT*);
     void BIC(INSTRUCTION_FORMAT*);
     void MVN(INSTRUCTION_FORMAT*);
+
+    void MSR(INSTRUCTION_FORMAT *);
+    void MRS(INSTRUCTION_FORMAT *);
+
+    void MUL(INSTRUCTION_FORMAT *);
+    void MLA(INSTRUCTION_FORMAT *);
+    void MULL(INSTRUCTION_FORMAT *);
+    void MLAL(INSTRUCTION_FORMAT *);
+
+
+    void LDR(INSTRUCTION_FORMAT *);
+    void STR(INSTRUCTION_FORMAT *);
+
 
 
     void AND_lli(INSTRUCTION_FORMAT*);

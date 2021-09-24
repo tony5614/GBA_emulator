@@ -513,6 +513,319 @@ void GBA_EMUALTOR_ARM7TDMI::update_CPSR_flags(INSTRUCTION_FORMAT *instruction_pt
 }
 
 
+//transfer PSR contents to a register
+void GBA_EMUALTOR_ARM7TDMI::MSR(INSTRUCTION_FORMAT *instruction_ptr)
+{    
+    U32 source_content;
+    //0b101000
+    if (instruction_ptr->psr_tsfr.rsv1 == 0x28)//transfer register contents or immdiate value to PSR flag bits only
+    {
+        if (instruction_ptr->psr_tsfr.I)//immediate
+        {
+            source_content = instruction_ptr->psr_tsfr.source_operand.imm;
+            source_content = source_content << (instruction_ptr->psr_tsfr.source_operand.rotate * 2);
+        }
+        else//source is a register
+        {
+            source_content = this->R[instruction_ptr->psr_tsfr.source_operand.Rm];
+        }
+    }
+    else//0b101001
+    {
+        source_content = this->R[instruction_ptr->psr_tsfr.source_operand.Rm];
+    }
+
+    if (instruction_ptr->psr_tsfr.Ps) //SPSR
+    {
+        switch (this->mode)
+        {
+        case  USR_MODE:
+            //??
+            break;
+        case FIQ_MODE:
+            if (instruction_ptr->psr_tsfr.rsv1 == 0x28)//transfer register contents or immdiate value to PSR flag bits only
+            {
+                this->SPSR_fiq.val = source_content & 0x0000000F;
+            }
+            else
+            {
+                this->SPSR_fiq.val = source_content;
+            }
+            break;
+        case IRQ_MODE:
+            if (instruction_ptr->psr_tsfr.rsv1 == 0x28)//transfer register contents or immdiate value to PSR flag bits only
+            {
+                this->SPSR_irq.val = source_content & 0x0000000F;
+            }
+            else
+            {
+                this->SPSR_irq.val = source_content;
+            }
+            break;
+        case SVC_MODE:
+            if (instruction_ptr->psr_tsfr.rsv1 == 0x28)//transfer register contents or immdiate value to PSR flag bits only
+            {
+                this->SPSR_svc.val = source_content & 0x0000000F;
+            }
+            else
+            {
+                this->SPSR_svc.val = source_content;
+            }
+            break;
+        case ABT_MODE:
+            if (instruction_ptr->psr_tsfr.rsv1 == 0x28)//transfer register contents or immdiate value to PSR flag bits only
+            {
+                this->SPSR_abt.val = source_content & 0x0000000F;
+            }
+            else
+            {
+                this->SPSR_abt.val = source_content;
+            }
+            break;
+        case UND_MODE:
+            if (instruction_ptr->psr_tsfr.rsv1 == 0x28)//transfer register contents or immdiate value to PSR flag bits only
+            {
+                this->SPSR_und.val = source_content & 0x0000000F;
+            }
+            else
+            {
+                this->SPSR_und.val = source_content;
+            }
+            break;
+        case SYS_MODE:
+            //?
+            break;
+        default:
+            while (1);
+        }
+    }
+    else //CPSR
+    {
+        this->SPSR_und.val = source_content;
+    }    
+}
+
+
+
+
+//transfer PSR contents to a register
+void GBA_EMUALTOR_ARM7TDMI::MRS(INSTRUCTION_FORMAT *instruction_ptr)
+{
+    U8 Rd = instruction_ptr->psr_tsfr.Rd;
+    if (instruction_ptr->psr_tsfr.Ps == 0) 
+    {
+        this->R[Rd] = this->CPSR_usr.val;
+    }
+    else 
+    {
+        switch (this->mode) 
+        {
+            case FIQ_MODE:
+                this->R[Rd] = this->SPSR_fiq.val;
+                break;
+            case IRQ_MODE:
+                this->R[Rd] = this->SPSR_irq.val;
+                break;
+            case SVC_MODE:
+
+                this->R[Rd] = this->SPSR_und.val;
+                break;
+            case ABT_MODE:
+
+                this->R[Rd] = this->SPSR_und.val;
+                break;
+            case UND_MODE:
+                this->R[Rd] = this->SPSR_und.val;
+                break;
+            case SYS_MODE:
+                //?
+                break;
+            default:
+                while (1);            
+        }
+    }
+}
+
+
+
+void GBA_EMUALTOR_ARM7TDMI::MUL(INSTRUCTION_FORMAT *instruction_ptr)
+{
+    U8 Rd = instruction_ptr->multply.Rd;
+    U8 Rm = instruction_ptr->multply.Rm;
+    U8 Rs = instruction_ptr->multply.Rs;
+
+    this->R[Rd] = this->R[Rm] * this->R[Rs];
+    update_CPSR_flags(instruction_ptr, this->R[Rd]);
+}
+
+void GBA_EMUALTOR_ARM7TDMI::MLA(INSTRUCTION_FORMAT *instruction_ptr)
+{
+    U8 Rd = instruction_ptr->multply.Rd;
+    U8 Rm = instruction_ptr->multply.Rm;
+    U8 Rs = instruction_ptr->multply.Rs;
+    U8 Rn = instruction_ptr->multply.Rn;
+
+    this->R[Rd] = this->R[Rm] * this->R[Rs] + this->R[Rn];
+    update_CPSR_flags(instruction_ptr, this->R[Rd]);
+}
+
+
+
+
+void GBA_EMUALTOR_ARM7TDMI::MULL(INSTRUCTION_FORMAT *instruction_ptr)
+{
+    U64 result;
+    U8  RdHi = instruction_ptr->multply_long.RdHi;
+    U8  RdLo = instruction_ptr->multply_long.RdLo;
+    U8  Rm   = instruction_ptr->multply_long.Rm;
+    U8  Rs   = instruction_ptr->multply_long.Rs;
+
+    result = (U64)this->R[Rm] * (U64)this->R[Rs];
+    this->R[RdHi] = result >> 32;
+    this->R[RdLo] = result & 0xFFFFFFFF;
+}
+
+void GBA_EMUALTOR_ARM7TDMI::MLAL(INSTRUCTION_FORMAT *instruction_ptr)
+{
+    U64 result;
+    U64 accumulate;
+    U8  RdHi = instruction_ptr->multply_long.RdHi;
+    U8  RdLo = instruction_ptr->multply_long.RdLo;
+    U8  Rm = instruction_ptr->multply_long.Rm;
+    U8  Rs = instruction_ptr->multply_long.Rs;
+
+    accumulate = ((U64)this->R[RdHi]) << 32 | ((U64)this->R[RdLo]);
+    result = (U64)this->R[Rm] * (U64)this->R[Rs] + accumulate;
+
+    this->R[RdHi] = result >> 32;
+    this->R[RdLo] = result & 0xFFFFFFFF;
+}
+
+
+void GBA_EMUALTOR_ARM7TDMI::LDR(INSTRUCTION_FORMAT *instruction_ptr)
+{
+    U8 Rd = instruction_ptr->single_data_tsf.Rd;
+    U8 Rn = instruction_ptr->single_data_tsf.Rn;
+    U16 offset;
+    U32 base_addr;
+
+
+    base_addr = this->R[Rn];
+
+    if (instruction_ptr->single_data_tsf.I) 
+    {
+        offset = instruction_ptr->single_data_tsf.offset;
+    }
+    else 
+    {
+        offset = get_shifted_operand2(instruction_ptr);
+    }
+
+    if (instruction_ptr->single_data_tsf.P == 1) 
+    {
+        if (instruction_ptr->single_data_tsf.U == 1)
+        {
+            base_addr = base_addr + offset;
+        }
+        else 
+        {
+            base_addr = base_addr - offset;
+        }
+    }
+
+    if (instruction_ptr->single_data_tsf.B == 1) 
+    {
+        this->R[Rn] = *((U8*)base_addr);
+    }
+    else 
+    {
+        this->R[Rn] = *((U32*)base_addr);
+    }
+
+    if (instruction_ptr->single_data_tsf.P == 0)
+    {
+        if (instruction_ptr->single_data_tsf.U == 1)
+        {
+            base_addr = base_addr + offset;
+        }
+        else
+        {
+            base_addr = base_addr - offset;
+        }
+    }
+
+    if (instruction_ptr->single_data_tsf.W == 1)
+    {
+        this->R[Rn] = base_addr;
+    }
+}
+
+void GBA_EMUALTOR_ARM7TDMI::STR(INSTRUCTION_FORMAT *instruction_ptr)
+{
+    U8 Rd = instruction_ptr->single_data_tsf.Rd;
+    U8 Rn = instruction_ptr->single_data_tsf.Rn;
+    U16 offset;
+    U32 base_addr;
+
+
+    base_addr = this->R[Rn];
+
+    if (instruction_ptr->single_data_tsf.I)
+    {
+        offset = instruction_ptr->single_data_tsf.offset;
+    }
+    else
+    {
+        offset = get_shifted_operand2(instruction_ptr);
+    }
+
+    if (instruction_ptr->single_data_tsf.P == 1)
+    {
+        if (instruction_ptr->single_data_tsf.U == 1)
+        {
+            base_addr = base_addr + offset;
+        }
+        else
+        {
+            base_addr = base_addr - offset;
+        }
+    }
+
+    if (instruction_ptr->single_data_tsf.B == 1)
+    {
+        *((U8*)base_addr) = this->R[Rn];
+    }
+    else
+    {
+        *((U32*)base_addr) = this->R[Rn];
+    }
+
+    if (instruction_ptr->single_data_tsf.P == 0)
+    {
+        if (instruction_ptr->single_data_tsf.U == 1)
+        {
+            base_addr = base_addr + offset;
+        }
+        else
+        {
+            base_addr = base_addr - offset;
+        }
+    }
+
+    if (instruction_ptr->single_data_tsf.W == 1)
+    {
+        this->R[Rn] = base_addr;
+    }
+}
+
+
+
+
+
+
+
+
+
 
 //logical left immediate
 void GBA_EMUALTOR_ARM7TDMI::AND_lli(INSTRUCTION_FORMAT *instruction_ptr)
